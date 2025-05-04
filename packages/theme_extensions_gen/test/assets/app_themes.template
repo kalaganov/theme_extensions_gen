@@ -1,0 +1,51 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:theme_extensions_gen_annotations/theme_extensions_gen_annotations.dart';
+
+// abstract interface class
+@ThemeExtensionTemplate()
+abstract interface class AppTheme extends ThemeExtension<AppTheme>
+    with _$AppThemeMixin {
+  const factory AppTheme({
+    required TextStyle textStyle,
+    required Color color,
+    required Size size,
+    required Decoration decoration,
+    required Offset offset,
+    required Alignment alignment,
+    required Duration duration,
+    required double gap,
+    required Lerpable lerpableParam,
+    required LerpableFactory lerpableFactoryParam,
+  }) = _$AppTheme;
+}
+
+// abstract class
+@themeExtensionTemplate
+abstract class AppThemeWithDiagnosticable
+    extends ThemeExtension<AppThemeWithDiagnosticable>
+    with _$AppThemeWithDiagnosticableMixin, Diagnosticable {
+  const factory AppThemeWithDiagnosticable({
+    required Color color,
+  }) = _$AppThemeWithDiagnosticable;
+}
+
+class Lerpable {
+  static Lerpable? lerp(
+    Lerpable a,
+    Lerpable b,
+    double t,
+  ) {
+    throw UnimplementedError();
+  }
+}
+
+class LerpableFactory {
+  factory LerpableFactory.lerp(
+    LerpableFactory a,
+    LerpableFactory b,
+    double t,
+  ) {
+    throw UnimplementedError();
+  }
+}
