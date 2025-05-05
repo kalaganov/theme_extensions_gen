@@ -21,15 +21,14 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Setup Dart
-        uses: dart-lang/setup-dart@v1
+      - uses: dart-lang/setup-dart@v1
 
       - name: Install standard-version
         run: |
           cd packages/theme_extensions_gen
           npm install
 
-      - name: Run standard-version (auto bump + changelog + tag)
+      - name: Run standard-version (bump + changelog + tag)
         run: |
           cd packages/theme_extensions_gen
           npx standard-version
@@ -39,15 +38,18 @@ jobs:
           VERSION=$(node -p "require('./packages/theme_extensions_gen/package.json').version")
           echo "VERSION=$VERSION" >> $GITHUB_ENV
 
-      - name: Update pubspec.yaml version
+      - name: Update pubspec.yaml
         run: |
           cd packages/theme_extensions_gen
           dart bump_pubspec_version.dart ${{ env.VERSION }}
 
-      - name: Commit pubspec and push tag
+      - name: Commit pubspec and push everything
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add packages/theme_extensions_gen/pubspec.yaml
-          git commit -m "chore(pubspec): bump version to v${{ env.VERSION }} [skip ci]"
+          git add packages/theme_extensions_gen/pubspec.yaml \
+                  packages/theme_extensions_gen/CHANGELOG.md \
+                  packages/theme_extensions_gen/package.json
+          git commit -m "chore(release): v${{ env.VERSION }} [skip ci]"
+          git tag v${{ env.VERSION }}
           git push origin main --follow-tags
