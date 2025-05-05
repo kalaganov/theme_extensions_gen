@@ -8,6 +8,7 @@ A modular, annotation-based code generation system for scalable theming in Flutt
 ThemeExtension</code>.
 
 [![Build Status](https://img.shields.io/badge/build-success-brightgreen)]()
+[![pub package](https://img.shields.io/pub/v/theme_extensions_gen.svg)](https://pub.dev/packages/theme_extensions_gen)
 [![codecov](https://codecov.io/gh/kalaganov/theme_extensions_gen/branch/main/graph/badge.svg?flag=theme_extensions_gen)](https://codecov.io/gh/kalaganov/theme_extensions_gen/tree/main/packages/theme_extensions_gen)
 [![style: very good analysis](https://img.shields.io/badge/style-very_good_analysis-B22C89.svg)](https://pub.dev/packages/very_good_analysis)
 [![Verified Publisher](https://img.shields.io/pub/publisher/theme_extensions_gen)](https://pub.dev/packages/theme_extensions_gen)
