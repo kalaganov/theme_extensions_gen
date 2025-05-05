@@ -2,7 +2,7 @@
 
 <img src="https://raw.githubusercontent.com/kalaganov/theme_extensions_gen/main/assets/logo_rounded.webp" width="200" alt="theme_extensions_gen logo"/>
 
-# theme\_extensions\_gen
+# theme_extensions_gen
 
 A modular, annotation-based code generation system for scalable theming in Flutter using <code>
 ThemeExtension</code>.
