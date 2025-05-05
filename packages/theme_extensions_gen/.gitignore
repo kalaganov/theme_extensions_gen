@@ -11,6 +11,8 @@
 migrate_working_dir/
 ./coverage
 /coverage
+# .gitignore
+**/node_modules/
 
 # IntelliJ related
 *.iml

@@ -26,7 +26,7 @@ jobs:
       - name: Install standard-version
         run: |
           cd packages/theme_extensions_gen
-          npm ci
+          npm install
 
       - name: Run standard-version (auto bump + changelog + tag)
         run: |
