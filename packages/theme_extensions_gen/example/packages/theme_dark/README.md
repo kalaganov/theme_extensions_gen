@@ -46,7 +46,7 @@ final theme = ThemeData(
 Access values from extensions:
 
 ```
-final buttonTheme = context.brandedButtonTheme;
+final buttonTheme = context.themedButtonTheme;
 
 return Container(
   height: buttonTheme.height,
@@ -59,7 +59,7 @@ return Container(
 You can also use the standard Flutter API:
 
 ```
-final cardTheme = Theme.of(context).extension<BrandedCardTheme>();
+final cardTheme = Theme.of(context).extension<ThemedCardTheme>();
 ```
 
 ---

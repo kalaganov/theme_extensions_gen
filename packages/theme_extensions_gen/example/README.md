@@ -29,7 +29,7 @@ Provide a maintainable, flexible design system architecture using:
 ```
 example/
 ├── templates/            # ThemeExtension templates (interfaces only)
-│   └── e.g. BrandedCardTheme, BrandedButtonTheme, ...
+│   └── e.g. ThemedCardTheme, ThemedButtonTheme, ...
 ├── theme_light/          # Light theme implementation (colors, styles, etc.)
 ├── theme_dark/           # Dark theme implementation
 ├── main.dart             # Demo app showing theme switching
@@ -46,15 +46,15 @@ Each `@ThemeExtensionTemplate()` defines a typed interface for a specific UI ele
 
 ```dart
 @ThemeExtensionTemplate()
-abstract interface class BrandedCardTheme
-    extends ThemeExtension<BrandedCardTheme> {
-  const factory BrandedCardTheme({
+abstract interface class ThemedCardTheme
+    extends ThemeExtension<ThemedCardTheme> {
+  const factory ThemedCardTheme({
     required Decoration decoration,
     required EdgeInsets padding,
     required TextStyle titleStyle,
     required TextStyle descriptionStyle,
     required double titleGapY,
-  }) = _$BrandedCardTheme;
+  }) = _$ThemedCardTheme;
 }
 ```
 
@@ -69,7 +69,7 @@ Each theme (e.g. light or dark) uses `@ThemeExtensionImpl()` to provide concrete
 ```dart
 @ThemeExtensionImpl()
 List<ThemeExtension> get themeExtensionsDark => const [
-  BrandedCardTheme(
+  ThemedCardTheme(
     decoration: BoxDecoration(
       color: voidBlack,
       borderRadius: cardBorderRadius,
@@ -93,13 +93,13 @@ All visual values (colors, insets, text styles, etc.) are extracted into `src/re
 You can access your ThemeExtensions directly using Flutter’s standard API:
 
 ```dart
-final theme = Theme.of(context).extension<BrandedButtonTheme>();
+final theme = Theme.of(context).extension<ThemedButtonTheme>();
 ```
 
 Or, use the convenient generated extension on `BuildContext`:
 
 ```dart
-final theme = context.brandedButtonTheme;
+final theme = context.themedButtonTheme;
 ```
 
 This gives you access to the full theme definition:
@@ -107,7 +107,7 @@ This gives you access to the full theme definition:
 ```dart
 @override
 Widget build(BuildContext context) {
-  final theme = context.brandedButtonTheme;
+  final theme = context.themeddButtonTheme;
 
   return Container(
     height: theme.height,
@@ -115,7 +115,7 @@ Widget build(BuildContext context) {
     padding: theme.padding,
     child: Center(
       widthFactor: 1,
-      child: Text('Branded Button', style: theme.textStyle, maxLines: 1),
+      child: Text('Themed Button', style: theme.textStyle, maxLines: 1),
     ),
   );
 }

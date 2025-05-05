@@ -29,14 +29,14 @@ Marks an abstract interface as a template for a `ThemeExtension`. The generator 
 
 ```dart
 @ThemeExtensionTemplate()
-abstract interface class BrandedButtonTheme
-    extends ThemeExtension<BrandedButtonTheme>
-    with _$BrandedButtonThemeMixin, Diagnosticable {
-  const factory BrandedButtonTheme({
+abstract interface class ThemedButtonTheme
+    extends ThemeExtension<ThemedButtonTheme>
+    with _$ThemedButtonThemeMixin, Diagnosticable {
+  const factory ThemedButtonTheme({
     required Decoration decoration,
     required TextStyle textStyle,
     required EdgeInsets padding,
-  }) = _$BrandedButtonTheme;
+  }) = _$ThemedButtonTheme;
 }
 ```
 
@@ -69,16 +69,16 @@ Used like this:
 ```dart
 @ThemeExtensionImpl()
 List<ThemeExtension> get someFeatureThemeExtensions => const [
-  BrandedCardTheme(
+  ThemedCardTheme(
     // 
   ),
-  BrandedButtonTheme(/*...*/),
+  ThemedButtonTheme(/*...*/),
 ];
 
 @ThemeExtensionImpl(group: 'dark')
 List<ThemeExtension> get someFeatureThemeExtensions => const [
-  BrandedCardTheme(/*...*/),
-  BrandedButtonTheme(/*...*/),
+  ThemedCardTheme(/*...*/),
+  ThemedButtonTheme(/*...*/),
 ];
 ```
 

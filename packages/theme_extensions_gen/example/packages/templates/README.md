@@ -22,15 +22,15 @@ This package is intended to be imported by all theme variants
 
 ```text
 @ThemeExtensionTemplate()
-abstract interface class BrandedCardTheme
-    extends ThemeExtension<BrandedCardTheme> {
-  const factory BrandedCardTheme({
+abstract interface class ThemedCardTheme
+    extends ThemeExtension<ThemedCardTheme> {
+  const factory ThemedCardTheme({
     required Decoration decoration,
     required EdgeInsets padding,
     required TextStyle titleStyle,
     required TextStyle descriptionStyle,
     required double titleGapY,
-  }) = _$BrandedCardTheme;
+  }) = _$ThemedCardTheme;
 }
 ```
 
@@ -50,7 +50,7 @@ its values using `@ThemeExtensionImpl()`:
 ```text
 @ThemeExtensionImpl()
 List<ThemeExtension> get themeExtensionsDark => const [
-  BrandedCardTheme(
+  ThemedCardTheme(
     decoration: ...,
     padding: ...,
     ...

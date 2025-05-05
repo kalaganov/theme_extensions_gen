@@ -31,7 +31,7 @@ ThemeExtension</code>.
 ## Before / After
 
 | Hand-written ThemeExtension                                                                                    | With @ThemeExtensionTemplate                                                                                     |
-| -------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+|----------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------|
 | ![Manual](https://raw.githubusercontent.com/kalaganov/theme_extensions_gen/refs/heads/main/assets/before.webp) | ![Generated](https://raw.githubusercontent.com/kalaganov/theme_extensions_gen/refs/heads/main/assets/after.webp) |
 
 ---
@@ -81,19 +81,19 @@ Marks an abstract interface as a `ThemeExtension` template. The generator create
 * A concrete class with a factory constructor
 * `copyWith`, `lerp`, `==`, `hashCode`
 * `debugFillProperties()` if `Diagnosticable` is used in the mixins
-* `BuildContext` extensions with accessors like `context.brandedButtonTheme`
+* `BuildContext` extensions with accessors like `context.themedButtonTheme`
 
 **Example:**
 
 ```dart
 @ThemeExtensionTemplate()
-abstract interface class BrandedButtonTheme extends ThemeExtension<BrandedButtonTheme>
-    with _$BrandedButtonThemeMixin, Diagnosticable {
-  const factory BrandedButtonTheme({
+abstract interface class ThemedButtonTheme extends ThemeExtension<ThemedButtonTheme>
+    with _$ThemedButtonThemeMixin, Diagnosticable {
+  const factory ThemedButtonTheme({
     required Decoration decoration,
     required TextStyle textStyle,
     required EdgeInsets padding,
-  }) = _$BrandedButtonTheme;
+  }) = _$ThemedButtonTheme;
 }
 ```
 
@@ -111,15 +111,15 @@ file.
 @ThemeExtensionImpl()
 List<ThemeExtension> get someFeatureThemeExtensions =>
     const [
-      BrandedCardTheme(/* ... */),
-      BrandedButtonTheme(/* ... */),
+      ThemedCardTheme(/* ... */),
+      ThemedButtonTheme(/* ... */),
     ];
 
 @ThemeExtensionImpl(group: 'dark')
 List<ThemeExtension> get someFeatureThemeExtensions =>
     const [
-      BrandedCardTheme(/* ... */),
-      BrandedButtonTheme(/* ... */),
+      ThemedCardTheme(/* ... */),
+      ThemedButtonTheme(/* ... */),
     ];
 ```
 
@@ -159,9 +159,9 @@ builders:
 ## Example Usage
 
 ```dart
-final theme = Theme.of(context).extension<BrandedCardTheme>();
+final theme = Theme.of(context).extension<ThemedCardTheme>();
 // or
-final theme = context.brandedCardTheme;
+final theme = context.themedCardTheme;
 ```
 
 ---
