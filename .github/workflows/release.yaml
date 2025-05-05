@@ -40,7 +40,9 @@ jobs:
           echo "VERSION=$VERSION" >> $GITHUB_ENV
 
       - name: Update pubspec.yaml version
-        run: dart packages/theme_extensions_gen/bump_pubspec_version.dart ${{ env.VERSION }}
+        run: |
+          cd packages/theme_extensions_gen
+          dart bump_pubspec_version.dart ${{ env.VERSION }}
 
       - name: Commit pubspec and push tag
         run: |
