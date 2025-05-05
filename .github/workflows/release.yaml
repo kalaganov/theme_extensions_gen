@@ -1,0 +1,50 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'packages/theme_extensions_gen/**'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Setup Dart
+        uses: dart-lang/setup-dart@v1
+
+      - name: Install standard-version
+        run: |
+          cd packages/theme_extensions_gen
+          npm ci
+
+      - name: Run standard-version (auto bump + changelog + tag)
+        run: |
+          cd packages/theme_extensions_gen
+          npx standard-version
+
+      - name: Extract version
+        run: |
+          VERSION=$(node -p "require('./packages/theme_extensions_gen/package.json').version")
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Update pubspec.yaml version
+        run: dart packages/theme_extensions_gen/bump_pubspec_version.dart ${{ env.VERSION }}
+
+      - name: Commit pubspec and push tag
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add packages/theme_extensions_gen/pubspec.yaml
+          git commit -m "chore(pubspec): bump version to v${{ env.VERSION }} [skip ci]"
+          git push origin main --follow-tags
