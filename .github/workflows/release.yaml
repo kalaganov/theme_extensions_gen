@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'packages/theme_extensions_gen/**'
   workflow_dispatch:
 
 jobs:
