@@ -6,7 +6,7 @@ module.exports = {
         ...commit,
         shortSubject: commit.subject.trim()
       };
-    }
+    },
     groupBy: 'type',
     commitGroupsSort: 'title',
     commitsSort: ['subject'],
