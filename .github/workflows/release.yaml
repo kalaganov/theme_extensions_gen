@@ -35,6 +35,8 @@ jobs:
           cd tools/release
           npx standard-version \
             --config changelog.config.js \
+            --infile ../../packages/theme_extensions_gen/CHANGELOG.md \
+            --outfile ../../packages/theme_extensions_gen/CHANGELOG.md \
             --skip.tag
 
       - name: Extract version
