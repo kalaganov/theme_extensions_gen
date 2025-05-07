@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.18](https://github.com/kalaganov/theme_extensions_gen/compare/v1.0.17...v1.0.18) (2025-05-07)
+
+# Changelog
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
 ## <small>1.0.17 (2025-05-07)</small>
 
 * chore: add release workflow and pubspec version bump script ([abf5a8d](https://github.com/kalaganov/theme_extensions_gen/commit/abf5a8d))
