@@ -1,3 +1,21 @@
+Changelog for v1.0.0
+---------------------------
+
+
+🔥 CUSTOM TEMPLATE WORKS
+
+### chore
+
+* chore: `release` - 1.0.17
+* chore: `release` - 1.0.18
+* chore: `release` - 1.0.19
+* chore: `release` - 1.0.20
+* chore: `release` - null
+* chore: `release` - null
+* chore: `release` - null
+* chore: `release` - null
+* chore: test chore type
+* chore: test chore type
 # Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
