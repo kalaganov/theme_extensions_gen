@@ -33,10 +33,10 @@ jobs:
       - name: Generate changelog with custom template
         run: |
           cd tools/release
-         npx conventional-changelog \
+          npx conventional-changelog \
             --config ./custom-preset.js \
             -i ../../packages/theme_extensions_gen/CHANGELOG.md \
-           -s
+            -s
 
       - name: Extract version
         run: |
