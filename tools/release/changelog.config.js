@@ -1,12 +1,12 @@
 // tools/release/changelog.config.js
 module.exports = {
   infile: '../../packages/theme_extensions_gen/CHANGELOG.md',
-  commitUrlFormat: '',
-  compareUrlFormat: '',
+  commitUrlFormat: 'fgfgfgfgf',
+  compareUrlFormat: 'tytytytyty',
   linkCompare: false,
   linkReferences: false,
   headerPartial: '+++++++++++++'
-  context: { linkCompare: false, linkReferences: false },
+  context: { linkCompare: false, linkReferences: false, commitUrlFormat: 'sasaaas', compareUrlFormat: 'bvbvnnn', subject: 'subjedddd' },
   types: [
     { type: 'feat', section: 'Features' },
     { type: 'fix', section: 'Bug Fixes' },
