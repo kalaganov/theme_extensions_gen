@@ -35,6 +35,9 @@ jobs:
           cd tools/release
           npx conventional-changelog \
             --config ./custom-preset.js \
+            --commit-path . \
+            --verbose \
+            --release-count 0 \
             -i ../../packages/theme_extensions_gen/CHANGELOG.md \
             -s
 
