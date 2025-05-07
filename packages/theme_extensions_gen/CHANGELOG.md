@@ -7,6 +7,13 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Chores
 
+* test chore type ([fc872fb](https://github.com/kalaganov/theme_extensions_gen/commit/fc872fbb2a857cdd537421188fc4805fcff21153))
+
+### [1.0.17](https://github.com/kalaganov/theme_extensions_gen/compare/v1.0.16...v1.0.17) (2025-05-07)
+
+
+### Chores
+
 * test chore type ([1618044](https://github.com/kalaganov/theme_extensions_gen/commit/16180449c117d86da3fbd41c4edcff87b34bb171))
 
 ### [1.0.16](https://github.com/kalaganov/theme_extensions_gen/compare/v1.0.15...v1.0.16) (2025-05-07)
