@@ -1,6 +1,6 @@
 {
   "name": "release-tools",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "lockfileVersion": 3,
   "requires": true,
   "standard-version": {
@@ -9,7 +9,7 @@
   "packages": {
     "": {
       "name": "release-tools",
-      "version": "1.0.19",
+      "version": "1.0.20",
       "devDependencies": {
         "conventional-changelog-custom-config": "^0.3.1",
         "standard-version": "^9.5.0"
