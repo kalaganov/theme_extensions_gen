@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.16](https://github.com/kalaganov/theme_extensions_gen/compare/v1.0.15...v1.0.16) (2025-05-07)
+
 ### [1.0.15](https://github.com/kalaganov/theme_extensions_gen/compare/v1.0.14...v1.0.15) (2025-05-07)
 
 ### [0.1.7](https://github.com/kalaganov/theme_extensions_gen/compare/v0.1.0...v0.1.7) (2025-05-07)
