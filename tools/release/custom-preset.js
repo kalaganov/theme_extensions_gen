@@ -1,15 +1,22 @@
 module.exports = {
   writerOpts: {
-    transform: (commit) => commit,
+    transform: (commit) => {
+      if (!commit.type || !commit.subject) return;
+      commit.shortSubject = commit.subject.trim();
+      return commit;
+    },
     groupBy: 'type',
     commitGroupsSort: 'title',
-    commitsSort: ['scope', 'subject'],
+    commitsSort: ['subject'],
     noteGroupsSort: 'title',
     headerPartial:
       'Changelog for v{{version}}\n---------------------------\n\n',
     commitPartial:
-      '* {{type}}: {{#if scope}}`{{scope}}` - {{/if}}{{subject}}\n',
+      '* {{shortSubject}}\n',
     mainTemplate:
-      '{{> header}}\n\n🔥 CUSTOM TEMPLATE WORKS\n\n{{#each commitGroups}}\n### {{title}}\n\n{{#each commits}}\n{{> commit}}\n{{/each}}\n{{/each}}\n'
+      '{{> header}}' +
+      '{{#each commitGroups}}\n### {{title}}\n' +
+      '{{#each commits}}{{> commit}}{{/each}}\n{{/each}}\n',
+    includeCommitDate: false
   }
 };
