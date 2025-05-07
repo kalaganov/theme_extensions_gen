@@ -1,10 +1,12 @@
 module.exports = {
   writerOpts: {
     transform: (commit) => {
-      if (!commit.type || !commit.subject) return;
-      commit.shortSubject = commit.subject.trim();
-      return commit;
-    },
+    if (!commit.type || !commit.subject) return;
+      return {
+        ...commit,
+        shortSubject: commit.subject.trim()
+      };
+    }
     groupBy: 'type',
     commitGroupsSort: 'title',
     commitsSort: ['subject'],
