@@ -30,13 +30,13 @@ jobs:
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
 
-      - name: Run standard-version with custom config
+      - name: Generate changelog with custom template
         run: |
           cd tools/release
-          npx standard-version \
-            --infile ../../packages/theme_extensions_gen/CHANGELOG.md \
-            --outfile ../../packages/theme_extensions_gen/CHANGELOG.md \
-            --skip.tag
+         npx conventional-changelog \
+            --config ./custom-preset.js \
+            -i ../../packages/theme_extensions_gen/CHANGELOG.md \
+           -s
 
       - name: Extract version
         run: |
