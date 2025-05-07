@@ -3,6 +3,9 @@
   "version": "1.0.15",
   "lockfileVersion": 3,
   "requires": true,
+  "standard-version": {
+    "config": "./changelog.config.js"
+  },
   "packages": {
     "": {
       "name": "release-tools",
