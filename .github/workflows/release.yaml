@@ -41,6 +41,11 @@ jobs:
             -i ../../packages/theme_extensions_gen/CHANGELOG.md \
             -s
 
+      - name: Bump version with standard-version
+        run: |
+         cd tools/release
+          npx standard-version
+
       - name: Extract version
         run: |
           VERSION=$(node -p "require('./tools/release/package.json').version")

@@ -12,7 +12,7 @@ module.exports = {
     commitsSort: ['subject'],
     noteGroupsSort: 'title',
     headerPartial:
-      'Changelog for v{{version}}\n---------------------------\n\n',
+      'Changelog for v{{version}}\n---------------------------\n',
     commitPartial:
       '* {{shortSubject}}\n',
     mainTemplate:
