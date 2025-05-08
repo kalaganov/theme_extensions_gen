@@ -1,4 +1,4 @@
-Changelog for v0.1.6
+Changelog for v0.1.8
 ---------------------------
 
 ### chore
@@ -34,4 +34,8 @@ Changelog for v0.1.6
 ### feat
 * test chore type
 * test new commit
+
+
+### refactor
+* test action
 
