@@ -1,3 +1,25 @@
-# Default ignored files
 /shelf/
 /workspace.xml
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+migrate_working_dir/
+./coverage
+/coverage
+**/node_modules/
+
+*.iml
+*.ipr
+*.iws
+.idea/
+
+/pubspec.lock
+**/doc/api/
+.dart_tool/
+build/

@@ -40,11 +40,15 @@ jobs:
             --release-count 0 \
             -i ../../packages/theme_extensions_gen/CHANGELOG.md \
             -s
-
-      - name: Bump version with standard-version
+      - name: Bump version manually
         run: |
-         cd tools/release
-          npx standard-version
+          cd tools/release
+          node -e "const fs=require('fs');
+            const f='package.json';
+            const j=JSON.parse(fs.readFileSync(f));
+            const v=j.version.split('.').map(Number);
+            v[2]++; j.version=v.join('.');
+            fs.writeFileSync(f, JSON.stringify(j, null, 2));"
 
       - name: Extract version
         run: |
