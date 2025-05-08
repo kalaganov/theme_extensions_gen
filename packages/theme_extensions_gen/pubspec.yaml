@@ -1,7 +1,7 @@
 name: theme_extensions_gen
 description: > 
   Generate Flutter ThemeExtensions from annotated templates with context accessors and no boilerplate.
-version: 1.0.0
+version: 0.1.5
 homepage: https://github.com/kalaganov/theme_extensions_gen
 repository: https://github.com/kalaganov/theme_extensions_gen/tree/main/packages/theme_extensions_gen
 issue_tracker: https://github.com/kalaganov/theme_extensions_gen/issues
