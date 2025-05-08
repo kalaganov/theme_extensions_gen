@@ -20,7 +20,7 @@ jobs:
 
       - uses: dart-lang/setup-dart@v1
 
-      - name: Install standard-version
+      - name: Install standard-version deps
         run: |
           cd tools/release
           npm install
@@ -30,16 +30,6 @@ jobs:
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
 
-      - name: Generate changelog with custom template
-        run: |
-          cd tools/release
-          npx conventional-changelog \
-            --config ./custom-preset.js \
-            --commit-path . \
-            --verbose \
-            --release-count 0 \
-            -i ../../packages/theme_extensions_gen/CHANGELOG.md \
-            -s
       - name: Bump version manually
         run: |
           cd tools/release
@@ -55,6 +45,18 @@ jobs:
           VERSION=$(node -p "require('./tools/release/package.json').version")
           echo "VERSION=$VERSION" >> $GITHUB_ENV
 
+      - name: Generate changelog with custom template
+        run: |
+          cd tools/release
+          npx conventional-changelog \
+            --config ./custom-preset.js \
+            --release-version ${{ env.VERSION }} \
+            --commit-path . \
+            --verbose \
+            --release-count 0 \
+            -i ../../packages/theme_extensions_gen/CHANGELOG.md \
+            -s
+
       - name: Update pubspec.yaml
         run: |
           dart tools/release/bump_pubspec_version.dart ${{ env.VERSION }}
@@ -62,7 +64,8 @@ jobs:
       - name: Commit changes
         run: |
           git add packages/theme_extensions_gen/pubspec.yaml \
-          packages/theme_extensions_gen/CHANGELOG.md
+          packages/theme_extensions_gen/CHANGELOG.md \
+          tools/release/package.json
           git commit -m "chore(release): v${{ env.VERSION }} [skip ci]" || true
 
       - name: Tag release
