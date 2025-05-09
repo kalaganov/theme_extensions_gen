@@ -1,33 +1,21 @@
-module.exports = {
-  writerOpts: {
-    transform: (commit) => {
-      if (!commit.type || !commit.subject) return;
+transform: (commit) => {
+  const type = commit.type?.trim();
+  const subject = commit.subject?.trim();
+  if (!type || !subject) return;
 
-      const pr = commit.references?.length
-        ? ` ([#${commit.references[0].issue}])`
-        : '';
+  const prRef =
+    Array.isArray(commit.references) && commit.references.length
+      ? ` ([#${commit.references[0].issue || commit.references[0].hash}])`
+      : '';
 
-      const breaking = commit.notes.some(
-        (note) => note.title === 'BREAKING CHANGE'
-      )
-        ? '**BREAKING** '
-        : '';
+  const isBreaking = Array.isArray(commit.notes)
+    ? commit.notes.some((n) => n.title === 'BREAKING CHANGE')
+    : false;
 
-      return {
-        ...commit,
-        formatted: `- ${breaking}${commit.type}: ${commit.subject.trim()}${pr}`
-      };
-    },
-    commitsSort: ['scope', 'subject'],
-    mainTemplate:
-      '{{#each versions}}# {{version}}\n\n' +
-      '{{#each commits}}{{formatted}}\n{{/each}}\n\n{{/each}}',
-    includeCommitDate: false,
-    finalizeContext: (context) => {
-      context.commitGroups = [
-        { commits: context.commits }
-      ];
-      return context;
-    }
-  }
-};
+  const breakingPrefix = isBreaking ? '**BREAKING** ' : '';
+
+  return {
+    ...commit,
+    formatted: `- ${breakingPrefix}${type}: ${subject}${prRef}`,
+  };
+}
