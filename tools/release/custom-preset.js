@@ -1,10 +1,12 @@
 module.exports = {
   writerOpts: {
     transform: (commit) => {
-    if (!commit.type || !commit.subject) return;
+      if (!commit.type || !commit.subject) return;
+
       return {
         ...commit,
-        shortSubject: commit.subject.trim()
+        shortSubject: commit.subject.trim(),
+        header: commit.subject.trim()
       };
     },
     groupBy: 'type',
@@ -12,13 +14,14 @@ module.exports = {
     commitsSort: ['subject'],
     noteGroupsSort: 'title',
     headerPartial:
-      'Changelog for v{{version}}\n---------------------------\n',
+      '## {{version}} ({{date}})\n\n',
     commitPartial:
-      '* {{shortSubject}}\n',
+      '* {{header}}\n',
     mainTemplate:
       '{{> header}}' +
-      '{{#each commitGroups}}\n### {{title}}\n' +
-      '{{#each commits}}{{> commit}}{{/each}}\n{{/each}}\n',
-    includeCommitDate: false
+      '{{#each commitGroups}}### {{title}}\n' +
+      '{{#each commits}}{{> commit}}{{/each}}\n\n{{/each}}',
+    includeCommitDate: true,
+    reverse: false
   }
 };
