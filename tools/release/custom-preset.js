@@ -1,44 +1,52 @@
-module.exports = {
-  writerOpts: {
-    transform: (commit) => {
-      const type = commit.type?.trim();
-      const subject = commit.subject?.trim();
+'use strict';
 
-      if (!type || !subject) {
-        console.warn('[SKIPPED] Bad commit:', commit.hash);
-        return;
+const Q = require('q');
+const parserOpts = {
+  headerPattern: /^(\w*)(?:\((.*)\))?!?: (.*)$/,
+  headerCorrespondence: ['type', 'scope', 'subject'],
+};
+
+const writerOpts = {
+  transform: (commit, context) => {
+    const issues = [];
+    commit.notes.forEach(note => {
+      note.title = 'BREAKING CHANGES';
+    });
+
+    if (commit.type === 'feat') {
+      commit.type = 'Features';
+    } else if (commit.type === 'fix') {
+      commit.type = 'Bug Fixes';
+    } else if (commit.type === 'chore') {
+      commit.type = 'Chores';
+    } else {
+      return;
+    }
+
+    if (commit.scope === '*') {
+      commit.scope = '';
+    }
+
+    if (typeof commit.hash === 'string') {
+      commit.shortHash = commit.hash.substring(0, 7);
+    }
+
+    if (typeof commit.subject === 'string') {
+      const prMatch = commit.subject.match(/\(#(\d+)\)/);
+      if (prMatch) {
+        commit.pr = prMatch[1];
+        issues.push(prMatch[1]);
       }
+    }
 
-      const pr =
-        Array.isArray(commit.references) &&
-        commit.references.length > 0 &&
-        commit.references[0].issue
-          ? ` ([#${commit.references[0].issue}])`
-          : '';
-
-      const isBreaking =
-        Array.isArray(commit.notes) &&
-        commit.notes.some((n) => n.title === 'BREAKING CHANGE');
-
-      const breaking = isBreaking ? '**BREAKING** ' : '';
-
-      return {
-        ...commit,
-        formatted: `- ${breaking}${type}: ${subject}${pr}`,
-      };
-    },
-
-    commitsSort: ['subject'],
-
-    mainTemplate:
-      '{{#each versions}}# {{version}}\n\n' +
-      '{{#each commits}}{{formatted}}\n{{/each}}\n\n{{/each}}',
-
-    includeCommitDate: false,
-
-    finalizeContext: (context) => {
-      context.commitGroups = [{ commits: context.commits }];
-      return context;
-    },
+    return commit;
   },
 };
+
+module.exports = Q.all([
+  parserOpts,
+  writerOpts
+]).spread((parserOpts, writerOpts) => ({
+  parserOpts,
+  writerOpts,
+}));

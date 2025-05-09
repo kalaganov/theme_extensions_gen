@@ -4,56 +4,61 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
 
 jobs:
   release:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: 20
 
-      - uses: dart-lang/setup-dart@v1
+      - name: Setup Dart
+        uses: dart-lang/setup-dart@v1
 
-      - name: Install standard-version deps
+      - name: Install dependencies
+        run: npm install
+        working-directory: tools/release
+
+      - name: Extract last tag and bump version
+        id: version
         run: |
-          cd tools/release
-          npm install
+          LAST_TAG=$(git describe --tags --abbrev=0)
+          echo "LAST_TAG=$LAST_TAG"
+          echo "last_tag=$LAST_TAG" >> $GITHUB_OUTPUT
+          VERSION=$(node -p "const v=require('./tools/release/package.json').version.split('.').map(Number); v[2]++; v.join('.')")          
+          echo "VERSION=$VERSION"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-      - name: Configure Git identity
+      - name: Generate changelog
         run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
+          npx conventional-changelog \
+            --config ./tools/release/custom-preset.js \
+            -i packages/theme_extensions_gen/CHANGELOG.md \
+            -s \
+            --commit-path . \
+            --from "${{ steps.version.outputs.last_tag }}"
 
-      - name: Bump version manually
+      - name: Bump pubspec.yaml
+        run: dart tools/release/bump_pubspec_version.dart ${{ steps.version.outputs.version }}
+
+      - name: Commit and tag
         run: |
-          cd tools/release
-          node -e "const fs=require('fs');
-            const f='package.json';
-            const j=JSON.parse(fs.readFileSync(f));
-            const v=j.version.split('.').map(Number);
-            v[2]++; j.version=v.join('.');
-            fs.writeFileSync(f, JSON.stringify(j, null, 2));"
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add packages/theme_extensions_gen/pubspec.yaml \
+                  packages/theme_extensions_gen/CHANGELOG.md
+          git commit -m "chore(release): v${{ steps.version.outputs.version }} [skip ci]"
+          git tag -a "v${{ steps.version.outputs.version }}" \
+            -m "chore(release): v${{ steps.version.outputs.version }}"
 
-      - name: Extract version
+      - name: Push to repo
         run: |
-          VERSION=$(node -p "require('./tools/release/package.json').version")
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
-
-      - name: Fetch all tags
-        run: git fetch --tags
-
-      - name: Debug
-        run: |
-          git log --oneline --decorate --graph --all
-
-      - name: Generate changelog with custom template
-        run: |
-          cd tools/release
-          LAST_TAG=$(git describe --tags --abbrev=0 --exclude v${{ env.VERSION }})
-          echo "Using tag range:
+          git push origin main --follow-tags
