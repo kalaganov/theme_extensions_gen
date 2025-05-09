@@ -1,0 +1,29 @@
+import 'package:flutter/material.dart';
+import 'package:theme_extensions_gen_annotations/theme_extensions_gen_annotations.dart';
+
+@ThemeExtensionImpl(group: 'dark')
+List<ThemeExtension> themeExtensionsFunction() {
+  return [ThemeA()];
+}
+
+@ThemeExtensionImpl(group: 'dark')
+List<ThemeExtension> get themeExtensionsGetter => [ThemeA()];
+
+@ThemeExtensionImpl()
+final themeVariable = ThemeB();
+
+class ThemeA extends ThemeExtension<ThemeA> {
+  @override
+  ThemeA copyWith() => this;
+
+  @override
+  ThemeA lerp(ThemeExtension<ThemeA>? other, double t) => this;
+}
+
+class ThemeB extends ThemeExtension<ThemeB> {
+  @override
+  ThemeB copyWith() => this;
+
+  @override
+  ThemeB lerp(ThemeExtension<ThemeB>? other, double t) => this;
+}

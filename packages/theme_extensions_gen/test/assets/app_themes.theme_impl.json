@@ -1,0 +1,18 @@
+{
+  "data": [
+    {
+      "group": "dark",
+      "import": "package:a/src/app_themes.dart",
+      "name": "...themeExtensionsFunction()"
+    },
+    {
+      "group": "dark",
+      "import": "package:a/src/app_themes.dart",
+      "name": "...themeExtensionsGetter"
+    },
+    {
+      "import": "package:a/src/app_themes.dart",
+      "name": "themeVariable"
+    }
+  ]
+}

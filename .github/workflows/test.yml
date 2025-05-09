@@ -1,0 +1,66 @@
+name: test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.29.3"
+
+      - name: Install dependencies
+        run: flutter pub get
+        working-directory: packages/theme_extensions_gen
+
+      - name: Run tests with coverage
+        run: dart test --coverage=coverage
+        working-directory: packages/theme_extensions_gen
+
+      - name: Check package config exists
+        run: ls -l .dart_tool/package_config.json
+        working-directory: packages/theme_extensions_gen
+
+      - name: List coverage dir
+        run: ls -R coverage || echo "No coverage dir"
+        working-directory: packages/theme_extensions_gen
+
+      - name: Activate coverage tool
+        run: dart pub global activate coverage
+
+      - name: Format coverage (force lcov)
+        run: |
+          dart pub global run coverage:format_coverage \
+            --lcov \
+            --in=coverage \
+            --out=coverage/lcov.info \
+            --report-on=lib/src \
+            --packages=.dart_tool/package_config.json
+          echo "--- formatted output ---"
+          head -n 10 coverage/lcov.info || echo "NO LCOV"
+        working-directory: packages/theme_extensions_gen
+
+      - name: Inspect lcov paths
+        run: |
+          echo "--- SF lines ---"
+          grep "^SF:" coverage/lcov.info || echo "NO SF FOUND"
+        working-directory: packages/theme_extensions_gen
+
+      - name: Fix paths in lcov.info
+        run: sed -i.bak 's|SF:.*/packages/theme_extensions_gen/|SF:|g' coverage/lcov.info
+        working-directory: packages/theme_extensions_gen
+
+      - name: Upload to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: packages/theme_extensions_gen/coverage/lcov.info
+          flags: theme_extensions_gen
+          name: theme_extensions_gen

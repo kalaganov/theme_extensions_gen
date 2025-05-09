@@ -1,0 +1,34 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+migrate_working_dir/
+
+# IntelliJ / Android Studio
+*.iml
+.idea/
+*.ipr
+*.iws
+.vcs.xml
+
+# VS Code
+.vscode/
+
+# Dart / Flutter / Pub
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+build/
+coverage/
+generated/
+**/doc/api/
+
+# pubspec.lock should not be committed in libraries
+/pubspec.lock

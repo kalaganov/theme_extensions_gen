@@ -1,0 +1,81 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - uses: dart-lang/setup-dart@v1
+
+      - name: Install standard-version deps
+        run: |
+          cd tools/release
+          npm install
+
+      - name: Configure Git identity
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+
+      - name: Bump version manually
+        run: |
+          cd tools/release
+          node -e "const fs=require('fs');
+            const f='package.json';
+            const j=JSON.parse(fs.readFileSync(f));
+            const v=j.version.split('.').map(Number);
+            v[2]++; j.version=v.join('.');
+            fs.writeFileSync(f, JSON.stringify(j, null, 2));"
+
+      - name: Extract version
+        run: |
+          VERSION=$(node -p "require('./tools/release/package.json').version")
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Fetch all tags
+        run: git fetch --tags
+
+      - name: Generate changelog with custom template
+        run: |
+          cd tools/release
+          npx conventional-changelog \
+            --config ./custom-preset.js \
+            --release-version ${{ env.VERSION }} \
+            --commit-path ../../packages/theme_extensions_gen \
+            --verbose \
+            -i ../../packages/theme_extensions_gen/CHANGELOG.md \
+            -s
+
+      - name: Update pubspec.yaml
+        run: |
+          dart tools/release/bump_pubspec_version.dart ${{ env.VERSION }}
+
+      - name: Commit changes
+        run: |
+          git add packages/theme_extensions_gen/pubspec.yaml \
+          packages/theme_extensions_gen/CHANGELOG.md \
+          tools/release/package.json
+          git commit -m "chore(release): v${{ env.VERSION }} [skip ci]" || true
+
+      - name: Push main (with tags)
+        run: |
+          git push origin main --follow-tags
+
+      - name: Tag release
+        run: |
+          git tag -a "v${{ env.VERSION }}" \
+            -m "chore(release): v${{ env.VERSION }}"
+          git push origin "v${{ env.VERSION }}"
