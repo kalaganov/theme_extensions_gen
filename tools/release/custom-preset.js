@@ -3,25 +3,31 @@ module.exports = {
     transform: (commit) => {
       if (!commit.type || !commit.subject) return;
 
+      const pr = commit.references?.length
+        ? ` ([#${commit.references[0].issue}])`
+        : '';
+
+      const breaking = commit.notes.some(
+        (note) => note.title === 'BREAKING CHANGE'
+      )
+        ? '**BREAKING** '
+        : '';
+
       return {
         ...commit,
-        shortSubject: commit.subject.trim(),
-        header: commit.subject.trim()
+        formatted: `- ${breaking}${commit.type}: ${commit.subject.trim()}${pr}`
       };
     },
-    groupBy: 'type',
-    commitGroupsSort: 'title',
-    commitsSort: ['subject'],
-    noteGroupsSort: 'title',
-    headerPartial:
-      '# {{version}}\n\n',
-    commitPartial:
-      '* {{header}}\n',
+    commitsSort: ['scope', 'subject'],
     mainTemplate:
-      '{{> header}}' +
-      '{{#each commitGroups}}- {{title}}\n' +
-      '{{#each commits}}{{> commit}}{{/each}}\n\n{{/each}}',
-    includeCommitDate: true,
-    reverse: false
+      '{{#each versions}}# {{version}}\n\n' +
+      '{{#each commits}}{{formatted}}\n{{/each}}\n\n{{/each}}',
+    includeCommitDate: false,
+    finalizeContext: (context) => {
+      context.commitGroups = [
+        { commits: context.commits }
+      ];
+      return context;
+    }
   }
 };
