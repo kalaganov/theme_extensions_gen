@@ -42,9 +42,7 @@ final class ContextExtensionsGenerator extends Builder {
 
     if (collectedTemplates.isEmpty) return;
 
-    final template = ContextExtensionsTemplate(
-      templates: collectedTemplates,
-    );
+    final template = ContextExtensionsTemplate(templates: collectedTemplates);
 
     final sb = StringBuffer();
     template.write(sb);
@@ -61,6 +59,6 @@ final class ContextExtensionsGenerator extends Builder {
 
   @override
   Map<String, List<String>> get buildExtensions => {
-        r'$lib$': [_options.outputPath]
-      };
+    r'$lib$': [_options.outputPath],
+  };
 }
