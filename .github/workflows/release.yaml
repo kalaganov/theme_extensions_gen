@@ -48,13 +48,16 @@ jobs:
       - name: Fetch all tags
         run: git fetch --tags
 
+      - name: Debug
+        run: |
+          git log v0.1.5..HEAD --oneline --decorate
+
       - name: Generate changelog with custom template
         run: |
           cd tools/release
           npx conventional-changelog \
             --config ./custom-preset.js \
             --release-version ${{ env.VERSION }} \
-            --commit-path ../../packages/theme_extensions_gen/ \
             --verbose \
             -i ../../packages/theme_extensions_gen/CHANGELOG.md \
             -s
