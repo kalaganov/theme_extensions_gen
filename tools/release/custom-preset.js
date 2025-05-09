@@ -14,12 +14,12 @@ module.exports = {
     commitsSort: ['subject'],
     noteGroupsSort: 'title',
     headerPartial:
-      '## {{version}} ({{date}})\n\n',
+      '# {{version}}\n\n',
     commitPartial:
       '* {{header}}\n',
     mainTemplate:
       '{{> header}}' +
-      '{{#each commitGroups}}### {{title}}\n' +
+      '{{#each commitGroups}}- {{title}}\n' +
       '{{#each commits}}{{> commit}}{{/each}}\n\n{{/each}}',
     includeCommitDate: true,
     reverse: false
