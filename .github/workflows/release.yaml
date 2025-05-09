@@ -54,7 +54,7 @@ jobs:
           npx conventional-changelog \
             --config ./custom-preset.js \
             --release-version ${{ env.VERSION }} \
-            --commit-path ../../packages/theme_extensions_gen \
+            --commit-path ../../packages/theme_extensions_gen/ \
             --verbose \
             -i ../../packages/theme_extensions_gen/CHANGELOG.md \
             -s
