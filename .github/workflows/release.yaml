@@ -50,35 +50,10 @@ jobs:
 
       - name: Debug
         run: |
-          git log v0.1.5..HEAD --oneline --decorate
+          git log --oneline --decorate --graph --all
 
       - name: Generate changelog with custom template
         run: |
           cd tools/release
-          npx conventional-changelog \
-            --config ./custom-preset.js \
-            --release-version ${{ env.VERSION }} \
-            --verbose \
-            -i ../../packages/theme_extensions_gen/CHANGELOG.md \
-            -s
-
-      - name: Update pubspec.yaml
-        run: |
-          dart tools/release/bump_pubspec_version.dart ${{ env.VERSION }}
-
-      - name: Commit changes
-        run: |
-          git add packages/theme_extensions_gen/pubspec.yaml \
-          packages/theme_extensions_gen/CHANGELOG.md \
-          tools/release/package.json
-          git commit -m "chore(release): v${{ env.VERSION }} [skip ci]" || true
-
-      - name: Push main (with tags)
-        run: |
-          git push origin main --follow-tags
-
-      - name: Tag release
-        run: |
-          git tag -a "v${{ env.VERSION }}" \
-            -m "chore(release): v${{ env.VERSION }}"
-          git push origin "v${{ env.VERSION }}"
+          LAST_TAG=$(git describe --tags --abbrev=0 --exclude v${{ env.VERSION }})
+          echo "Using tag range:
