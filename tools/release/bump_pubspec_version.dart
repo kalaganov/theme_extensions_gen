@@ -10,12 +10,13 @@ void main(List<String> args) {
   final file = File('packages/theme_extensions_gen/pubspec.yaml');
   final lines = file.readAsLinesSync();
 
-  final updated = lines.map((line) {
-    if (line.startsWith('version:')) {
-      return 'version: $version';
-    }
-    return line;
-  }).toList();
+  final updated =
+      lines.map((line) {
+        if (line.startsWith('version:')) {
+          return 'version: $version';
+        }
+        return line;
+      }).toList();
 
   file.writeAsStringSync('${updated.join('\n')}\n');
 }
