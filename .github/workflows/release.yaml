@@ -65,10 +65,12 @@ jobs:
             ${{ steps.version.outputs.version }}
 
       - name: Generate changelog
+        env:
+          LAST_TAG: ${{ steps.last_tag.outputs.last_tag }}
         run: |
           FROM_ARG=""
-          if [ -n "${{ steps.last_tag.outputs.last_tag }}" ]; then
-            FROM_ARG="--from ${{ steps.last_tag.outputs.last_tag }}"
+          if [ -n "$LAST_TAG" ]; then
+            FROM_ARG="--from $LAST_TAG"
           fi
 
           ./tools/release/node_modules/.bin/conventional-changelog \
