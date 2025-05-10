@@ -16,7 +16,6 @@ import 'package:flutter/material.dart';
 ///
 /// 🎥 Demo: https://raw.githubusercontent.com/kalaganov/theme_extensions_gen/main/assets/demo.gif
 void main() {
-
   runApp(const Application());
 }
 
