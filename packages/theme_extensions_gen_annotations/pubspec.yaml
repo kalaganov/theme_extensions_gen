@@ -1,0 +1,13 @@
+name: theme_extensions_gen_annotations
+description: >
+  Annotations for the theme_extensions_gen code generator.
+  This package is intended to be used alongside the theme_extensions_gen package.
+version: 0.1.2
+repository: https://github.com/kalaganov/theme_extensions_gen
+issue_tracker: https://github.com/kalaganov/theme_extensions_gen/issues
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dev_dependencies:
+  test: ^1.21.0

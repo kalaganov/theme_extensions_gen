@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/packages/theme_extensions_gen/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/theme_extensions_gen/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/theme_extensions_gen/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/theme_extensions_gen/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/theme_extensions_gen/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/theme_extensions_gen/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/theme_extensions_gen/example/packages/templates/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/theme_extensions_gen/example/packages/templates/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/theme_extensions_gen/example/packages/templates/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/theme_extensions_gen/example/packages/theme_dark/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/theme_extensions_gen/example/packages/theme_dark/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/theme_extensions_gen/example/packages/theme_dark/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/theme_extensions_gen/example/packages/theme_light/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/theme_extensions_gen/example/packages/theme_light/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/theme_extensions_gen/example/packages/theme_light/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/theme_extensions_gen_annotations/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/theme_extensions_gen_annotations/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/theme_extensions_gen_annotations/build" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

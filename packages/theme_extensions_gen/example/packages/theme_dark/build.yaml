@@ -1,0 +1,8 @@
+targets:
+  $default:
+    builders:
+      theme_extensions_gen|themeExtensionsImplCombiner:
+        options:
+          default_output:
+            path: "generated/theme_extensions.dart"
+            list_name: "themeExtensionsDark"

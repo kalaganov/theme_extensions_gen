@@ -1,0 +1,87 @@
+name: Release Dry Run
+
+on:
+  workflow_dispatch:
+
+jobs:
+  dry-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Dart
+        uses: dart-lang/setup-dart@v1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install changelog deps
+        run: npm install
+        working-directory: tools/release
+
+      - name: Get last tag or fallback
+        id: last_tag
+        run: |
+          git fetch --tags
+          TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+          echo "last_tag=$TAG" >> $GITHUB_OUTPUT
+
+      - name: Determine next version
+        id: version
+        run: |
+          if [ -z "${{ steps.last_tag.outputs.last_tag }}" ]; then
+            VERSION=$(node -p "require('./tools/release/package.json').version")
+            echo "No tag found. Using version from package.json: $VERSION"
+          else
+            COMMITS=$(git log ${{ steps.last_tag.outputs.last_tag }}..HEAD \
+              --pretty=format:"%s" -- packages/theme_extensions_gen)
+            VERSION=$(echo "${{ steps.last_tag.outputs.last_tag }}" | sed 's/^v//')
+            MAJOR=$(echo $VERSION | cut -d. -f1)
+            MINOR=$(echo $VERSION | cut -d. -f2)
+            PATCH=$(echo $VERSION | cut -d. -f3)
+
+            if echo "$COMMITS" | grep -q "BREAKING"; then
+              MAJOR=$((MAJOR+1)); MINOR=0; PATCH=0
+            elif echo "$COMMITS" | grep -q "feat"; then
+              MINOR=$((MINOR+1)); PATCH=0
+            else
+              PATCH=$((PATCH+1))
+            fi
+
+            VERSION="$MAJOR.$MINOR.$PATCH"
+          fi
+
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Bump pubspec.yaml
+        run: |
+          dart tools/release/bump_pubspec_version.dart \
+            ${{ steps.version.outputs.version }}
+
+      - name: Generate changelog
+        run: |
+          if [ -z "${{ steps.last_tag.outputs.last_tag }}" ]; then
+            FROM=""
+          else
+            FROM="--from ${{ steps.last_tag.outputs.last_tag }}"
+          fi
+
+          npx conventional-changelog \
+            --config tools/release/custom-preset.js \
+            --commit-path packages/theme_extensions_gen \
+            -i packages/theme_extensions_gen/CHANGELOG.md \
+            -s $FROM
+
+      - name: Show changes (dry-run)
+        run: |
+          echo "== Git status =="
+          git status
+          echo ""
+          echo "== Git diff =="
+          git diff
