@@ -68,16 +68,30 @@ jobs:
         env:
           LAST_TAG: ${{ steps.last_tag.outputs.last_tag }}
         run: |
-          FROM_ARG=""
-          if [ -n "$LAST_TAG" ]; then
-            FROM_ARG="--from $LAST_TAG"
-          fi
+          node <<EOF
+          const fs = require('fs');
+          const path = require('path');
+          const conventionalChangelog = require('conventional-changelog');
 
-          ./tools/release/node_modules/.bin/conventional-changelog \
-            --config tools/release/custom-preset.js \
-            --commit-path packages/theme_extensions_gen \
-            -i packages/theme_extensions_gen/CHANGELOG.md \
-            -s $FROM_ARG
+          const outputPath = path.resolve('packages/theme_extensions_gen/CHANGELOG.md');
+          const output = fs.createWriteStream(outputPath);
+
+          const options = {
+            config: require('../../tools/release/custom-preset.js'),
+          };
+
+          const context = {};
+          const gitOpts = {
+            merges: null,
+            path: 'packages/theme_extensions_gen',
+          };
+
+          if (process.env.LAST_TAG) {
+            gitOpts.from = process.env.LAST_TAG;
+          }
+
+          conventionalChangelog(options, context, gitOpts).pipe(output);
+          EOF
 
       - name: Show changes (dry-run)
         run: |
