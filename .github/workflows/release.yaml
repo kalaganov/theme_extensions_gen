@@ -66,17 +66,16 @@ jobs:
 
       - name: Generate changelog
         run: |
-          if [ -z "${{ steps.last_tag.outputs.last_tag }}" ]; then
-            FROM=""
-          else
-            FROM="--from ${{ steps.last_tag.outputs.last_tag }}"
+          FROM_ARG=""
+          if [ -n "${{ steps.last_tag.outputs.last_tag }}" ]; then
+            FROM_ARG="--from ${{ steps.last_tag.outputs.last_tag }}"
           fi
 
-          npx conventional-changelog \
+          ./tools/release/node_modules/.bin/conventional-changelog \
             --config tools/release/custom-preset.js \
             --commit-path packages/theme_extensions_gen \
             -i packages/theme_extensions_gen/CHANGELOG.md \
-            -s $FROM
+            -s $FROM_ARG
 
       - name: Show changes (dry-run)
         run: |
