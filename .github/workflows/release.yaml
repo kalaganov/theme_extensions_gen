@@ -63,7 +63,6 @@ jobs:
 
       - name: Bump pubspec.yaml
         run: |
-          echo "== Bumping pubspec.yaml =="
           dart tools/release/bump_pubspec_version.dart \
             ${{ steps.version.outputs.version }}
 
@@ -74,11 +73,16 @@ jobs:
           echo "== Generating changelog via Node API =="
           echo "LAST_TAG is: $LAST_TAG"
           node <<EOF
-          const fs = require('fs');
           const path = require('path');
+          const fs = require('fs');
+
+          // Force resolution from tools/release/node_modules
+          require.main.paths.unshift(path.resolve('./tools/release/node_modules'));
+
           const conventionalChangelog = require('conventional-changelog');
 
           console.log('== Running conventional-changelog in Node ==');
+
           const outputPath = path.resolve('packages/theme_extensions_gen/CHANGELOG.md');
           const output = fs.createWriteStream(outputPath);
 
