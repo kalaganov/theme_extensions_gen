@@ -6,6 +6,7 @@ import 'package:test/test.dart';
 import 'package:theme_extensions_gen/src/context_extensions_generator.dart';
 import 'package:theme_extensions_gen/src/models/options/context_extensions_generator_config.dart';
 import 'package:theme_extensions_gen/src/models/options/option_keys.dart';
+import 'package:yaml/yaml.dart';
 
 Future<void> main() async {
   test('generates correct output from multiple templates', () async {
@@ -99,6 +100,7 @@ extension ContextThemeExtensions on BuildContext {
       equals(_normalize(expectedOutput)),
     );
   });
+
   test('ContextExtensionsGeneratorConfig equality and hashCode', () {
     final a = ContextExtensionsGeneratorConfig.fromMap(const {
       OptionKeys.outputPath: 'src/context_extensions.dart',
@@ -114,6 +116,18 @@ extension ContextThemeExtensions on BuildContext {
 
     expect(a, equals(b));
     expect(a, isNot(equals(c)));
+    expect(a.hashCode, equals(b.hashCode));
+  });
+
+  test('ContextExtensionsGeneratorConfig YAML', () {
+    final a = ContextExtensionsGeneratorConfig.fromMap(YamlMap.wrap(const {
+      OptionKeys.outputPath: 'src/context_extensions.dart',
+    }));
+    final b = ContextExtensionsGeneratorConfig.fromMap(YamlMap.wrap(const {
+      OptionKeys.outputPath: 'src/context_extensions.dart',
+    }));
+
+    expect(a, equals(b));
     expect(a.hashCode, equals(b.hashCode));
   });
 }
