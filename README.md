@@ -72,10 +72,10 @@ Customize the location and name of the generated list through `build.yaml`:
 targets:
   $default:
     builders:
-      themeExtensionsImplCombiner:
+      theme_extensions_gen::themeExtensionsImplCombiner:
         options:
           default_output:
-            path: "lib/generated/theme_extensions/theme_extensions.dart"
+            path: "generated/theme_extensions/theme_extensions.dart"
             list_name: "themeExtensions"
 ```
 
@@ -186,26 +186,26 @@ List<ThemeExtension> get someFeatureThemeExtensions =>
 targets:
   $default:
     builders:
-      themeExtensionsImplCombiner:
+      theme_extensions_gen:themeExtensionsImplCombiner:
         options:
           default_output:
-            path: "lib/generated/theme_extensions/theme_extensions.dart"
+            path: "generated/theme_extensions/theme_extensions.dart"
             list_name: "themeExtensions"
           groups:
             dark:
-              path: "lib/generated/theme_extensions/theme_extensions_dark.dart"
+              path: "generated/theme_extensions/theme_extensions_dark.dart"
               list_name: "themeExtensionsDark"
 
-      contextExtensionsGenerator:
+      theme_extensions_gen:contextExtensionsGenerator:
         options:
-          output_path: "lib/generated/theme_extensions/context_extensions.dart"
+          output_path: "generated/theme_extensions/context_extensions.dart"
 ```
 
 To **disable `contextExtensionsGenerator`**, use:
 
 ```yaml
 builders:
-  contextExtensionsGenerator:
+  theme_extensions_gen:contextExtensionsGenerator:
     enabled: false
 ```
 
