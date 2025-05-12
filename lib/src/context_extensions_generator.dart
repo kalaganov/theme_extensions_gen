@@ -59,6 +59,6 @@ final class ContextExtensionsGenerator extends Builder {
 
   @override
   Map<String, List<String>> get buildExtensions => {
-    r'$lib$': [_options.outputPath],
-  };
+        r'$lib$': [_options.outputPath],
+      };
 }
