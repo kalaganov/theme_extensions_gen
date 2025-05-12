@@ -1,0 +1,317 @@
+// **************************************************************************
+// ThemeExtensionsGenerator
+// **************************************************************************
+
+/// @nodoc
+// ignore: unused_element
+mixin _$AppThemeMixin {
+  TextStyle get textStyle => throw UnimplementedError();
+
+  Color get color => throw UnimplementedError();
+
+  Size get size => throw UnimplementedError();
+
+  Decoration get decoration => throw UnimplementedError();
+
+  Offset get offset => throw UnimplementedError();
+
+  Alignment get alignment => throw UnimplementedError();
+
+  Duration get duration => throw UnimplementedError();
+
+  double get gap => throw UnimplementedError();
+
+  Lerpable get lerpableParam => throw UnimplementedError();
+
+  LerpableFactory get lerpableFactoryParam => throw UnimplementedError();
+
+  ThemeExtension<AppTheme> copyWith() => throw UnimplementedError();
+
+  ThemeExtension<AppTheme> lerp(
+    covariant AppTheme? other,
+    double t,
+  ) =>
+      throw UnimplementedError();
+}
+
+/// @nodoc
+abstract class _$AppTheme implements AppTheme {
+  const factory _$AppTheme({
+    required TextStyle textStyle,
+    required Color color,
+    required Size size,
+    required Decoration decoration,
+    required Offset offset,
+    required Alignment alignment,
+    required Duration duration,
+    required double gap,
+    required Lerpable lerpableParam,
+    required LerpableFactory lerpableFactoryParam,
+  }) = _$AppThemeImpl;
+}
+
+/// @nodoc
+@immutable
+class _$AppThemeImpl extends ThemeExtension<AppTheme> implements _$AppTheme {
+  const _$AppThemeImpl({
+    required this.textStyle,
+    required this.color,
+    required this.size,
+    required this.decoration,
+    required this.offset,
+    required this.alignment,
+    required this.duration,
+    required this.gap,
+    required this.lerpableParam,
+    required this.lerpableFactoryParam,
+  });
+
+  @override
+  final TextStyle textStyle;
+
+  @override
+  final Color color;
+
+  @override
+  final Size size;
+
+  @override
+  final Decoration decoration;
+
+  @override
+  final Offset offset;
+
+  @override
+  final Alignment alignment;
+
+  @override
+  final Duration duration;
+
+  @override
+  final double gap;
+
+  @override
+  final Lerpable lerpableParam;
+
+  @override
+  final LerpableFactory lerpableFactoryParam;
+
+  @override
+  Object get type => AppTheme;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other.runtimeType == runtimeType &&
+          other is AppTheme &&
+          textStyle == other.textStyle &&
+          color == other.color &&
+          size == other.size &&
+          decoration == other.decoration &&
+          offset == other.offset &&
+          alignment == other.alignment &&
+          duration == other.duration &&
+          gap == other.gap &&
+          lerpableParam == other.lerpableParam &&
+          lerpableFactoryParam == other.lerpableFactoryParam);
+
+  @override
+  int get hashCode =>
+      textStyle.hashCode ^
+      color.hashCode ^
+      size.hashCode ^
+      decoration.hashCode ^
+      offset.hashCode ^
+      alignment.hashCode ^
+      duration.hashCode ^
+      gap.hashCode ^
+      lerpableParam.hashCode ^
+      lerpableFactoryParam.hashCode;
+
+  @override
+  ThemeExtension<AppTheme> copyWith({
+    TextStyle? textStyle,
+    Color? color,
+    Size? size,
+    Decoration? decoration,
+    Offset? offset,
+    Alignment? alignment,
+    Duration? duration,
+    double? gap,
+    Lerpable? lerpableParam,
+    LerpableFactory? lerpableFactoryParam,
+  }) =>
+      AppTheme(
+        textStyle: textStyle ?? this.textStyle,
+        color: color ?? this.color,
+        size: size ?? this.size,
+        decoration: decoration ?? this.decoration,
+        offset: offset ?? this.offset,
+        alignment: alignment ?? this.alignment,
+        duration: duration ?? this.duration,
+        gap: gap ?? this.gap,
+        lerpableParam: lerpableParam ?? this.lerpableParam,
+        lerpableFactoryParam: lerpableFactoryParam ?? this.lerpableFactoryParam,
+      );
+
+  @override
+  ThemeExtension<AppTheme> lerp(
+    ThemeExtension<AppTheme>? other,
+    double t,
+  ) =>
+      other is! AppTheme
+          ? this
+          : AppTheme(
+              textStyle: TextStyle.lerp(
+                textStyle,
+                other.textStyle,
+                t,
+              )!,
+              color: Color.lerp(
+                color,
+                other.color,
+                t,
+              )!,
+              size: Size.lerp(
+                size,
+                other.size,
+                t,
+              )!,
+              decoration: Decoration.lerp(
+                decoration,
+                other.decoration,
+                t,
+              )!,
+              offset: Offset.lerp(
+                offset,
+                other.offset,
+                t,
+              )!,
+              alignment: Alignment.lerp(
+                alignment,
+                other.alignment,
+                t,
+              )!,
+              duration: _lerpDuration(duration, other.duration, t),
+              gap: _lerpDouble(gap, other.gap, t),
+              lerpableParam: Lerpable.lerp(
+                lerpableParam,
+                other.lerpableParam,
+                t,
+              )!,
+              lerpableFactoryParam: LerpableFactory.lerp(
+                lerpableFactoryParam,
+                other.lerpableFactoryParam,
+                t,
+              ),
+            );
+
+  double _lerpDouble(double a, double b, double t) =>
+      a == b || (a.isNaN && b.isNaN) ? a : a * (1.0 - t) + b * t;
+
+  // This code is copied from the `package:flutter/foundation.dart`
+
+  /// Linearly interpolate between two `Duration`s.
+  Duration _lerpDuration(Duration a, Duration b, double t) {
+    return Duration(
+      microseconds:
+          (a.inMicroseconds + (b.inMicroseconds - a.inMicroseconds) * t)
+              .round(),
+    );
+  }
+
+  @override
+  String toString() => 'AppTheme('
+      'textStyle: $textStyle, '
+      'color: $color, '
+      'size: $size, '
+      'decoration: $decoration, '
+      'offset: $offset, '
+      'alignment: $alignment, '
+      'duration: $duration, '
+      'gap: $gap, '
+      'lerpableParam: $lerpableParam, '
+      'lerpableFactoryParam: $lerpableFactoryParam'
+      ')';
+}
+
+/// @nodoc
+// ignore: unused_element
+mixin _$AppThemeWithDiagnosticableMixin {
+  Color get color => throw UnimplementedError();
+
+  ThemeExtension<AppThemeWithDiagnosticable> copyWith() =>
+      throw UnimplementedError();
+
+  ThemeExtension<AppThemeWithDiagnosticable> lerp(
+    covariant AppThemeWithDiagnosticable? other,
+    double t,
+  ) =>
+      throw UnimplementedError();
+}
+
+/// @nodoc
+abstract class _$AppThemeWithDiagnosticable
+    implements AppThemeWithDiagnosticable {
+  const factory _$AppThemeWithDiagnosticable({
+    required Color color,
+  }) = _$AppThemeWithDiagnosticableImpl;
+}
+
+/// @nodoc
+@immutable
+class _$AppThemeWithDiagnosticableImpl
+    extends ThemeExtension<AppThemeWithDiagnosticable>
+    with Diagnosticable
+    implements _$AppThemeWithDiagnosticable {
+  const _$AppThemeWithDiagnosticableImpl({
+    required this.color,
+  });
+
+  @override
+  final Color color;
+
+  @override
+  Object get type => AppThemeWithDiagnosticable;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other.runtimeType == runtimeType &&
+          other is AppThemeWithDiagnosticable &&
+          color == other.color);
+
+  @override
+  int get hashCode => color.hashCode;
+
+  @override
+  ThemeExtension<AppThemeWithDiagnosticable> copyWith({
+    Color? color,
+  }) =>
+      AppThemeWithDiagnosticable(
+        color: color ?? this.color,
+      );
+
+  @override
+  ThemeExtension<AppThemeWithDiagnosticable> lerp(
+    ThemeExtension<AppThemeWithDiagnosticable>? other,
+    double t,
+  ) =>
+      other is! AppThemeWithDiagnosticable
+          ? this
+          : AppThemeWithDiagnosticable(
+              color: Color.lerp(
+                color,
+                other.color,
+                t,
+              )!,
+            );
+
+  @override
+  void debugFillProperties(
+    DiagnosticPropertiesBuilder properties,
+  ) {
+    super.debugFillProperties(properties);
+    properties..add(DiagnosticsProperty('color', color));
+  }
+}

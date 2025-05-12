@@ -1,0 +1,35 @@
+name: example
+description: "Dynamic theming with code-generated ThemeExtensions in Flutter."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.6.0 <4.0.0'
+
+workspace:
+  - packages/templates
+  - packages/theme_light
+  - packages/theme_dark
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  templates:
+    path: ./packages/templates
+
+  theme_light:
+    path: ./packages/theme_light
+
+  theme_dark:
+    path: ./packages/theme_dark
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  very_good_analysis: ^7.0.0
+
+flutter:
+  uses-material-design: true

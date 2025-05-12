@@ -1,0 +1,49 @@
+builders:
+  themeExtensionsGenerator:
+    import: "package:theme_extensions_gen/builder.dart"
+    builder_factories: [ "themeExtensionsGenerator" ]
+    build_extensions: { ".dart": [ ".theme.g.part" ] }
+    auto_apply: dependents
+    build_to: cache
+    applies_builders: [ "source_gen:combining_builder" ]
+
+  themeExtensionsImplCollector:
+    import: "package:theme_extensions_gen/builder.dart"
+    builder_factories: [ "themeExtensionsImplCollector" ]
+    build_extensions: { ".dart": [ ".theme_impl.json" ] }
+    auto_apply: dependents
+    build_to: cache
+    applies_builders: [ "source_gen:combining_builder" ]
+
+  themeExtensionsTemplatesCollector:
+    import: "package:theme_extensions_gen/builder.dart"
+    builder_factories: [ "themeExtensionsTemplatesCollector" ]
+    build_extensions: { ".dart": [ ".theme_templates.json" ] }
+    auto_apply: dependents
+    build_to: cache
+    applies_builders: [ "source_gen:combining_builder" ]
+
+  contextExtensionsGenerator:
+    import: "package:theme_extensions_gen/builder.dart"
+    builder_factories: [ "contextExtensionsGenerator" ]
+    build_extensions: { "$lib$": [ "generated/theme_extensions/context_extensions.dart" ] }
+    auto_apply: dependents
+    build_to: source
+    required_inputs: [ ".theme_templates.json" ]
+    defaults:
+      options:
+        output_path: "generated/theme_extensions/context_extensions.dart"
+
+  themeExtensionsImplCombiner:
+    import: "package:theme_extensions_gen/builder.dart"
+    builder_factories: [ "themeExtensionsImplCombiner" ]
+    build_extensions: { "$lib$": [ "generated/theme_extensions/theme_extensions.dart" ] }
+    auto_apply: dependents
+    build_to: source
+    required_inputs: [ ".theme_impl.json" ]
+    defaults:
+      options:
+        default_output:
+          path: "generated/theme_extensions/theme_extensions.dart"
+          list_name: "themeExtensions"
+

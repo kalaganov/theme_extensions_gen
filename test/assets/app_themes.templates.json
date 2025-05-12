@@ -1,0 +1,7 @@
+{
+  "importUri": "package:a/features/profile/app_themes.dart",
+  "templateNames": [
+    "AppTheme",
+    "AppThemeWithDiagnosticable"
+  ]
+}

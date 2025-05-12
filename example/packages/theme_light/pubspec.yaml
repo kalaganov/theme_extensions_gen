@@ -1,0 +1,23 @@
+name: theme_light
+description: ThemeExtensions configuration for the dark theme variant of the app.
+version: 0.0.1
+publish_to: 'none'
+
+environment:
+  sdk: '>=3.6.0 <4.0.0'
+
+resolution: workspace
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  templates:
+    path: ../templates
+
+  theme_extensions_gen_annotations: any
+
+dev_dependencies:
+  build_runner: ^2.4.15
+
+  theme_extensions_gen: any
