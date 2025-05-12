@@ -12,7 +12,8 @@ ThemeExtension</code>.
 [![codecov](https://codecov.io/gh/kalaganov/theme_extensions_gen/branch/main/graph/badge.svg?flag=theme_extensions_gen)](https://codecov.io/gh/kalaganov/theme_extensions_gen/tree/main/packages/theme_extensions_gen)
 [![style: very good analysis](https://img.shields.io/badge/style-very_good_analysis-B22C89.svg)](https://pub.dev/packages/very_good_analysis)
 [![Verified Publisher](https://img.shields.io/pub/publisher/theme_extensions_gen)](https://pub.dev/packages/theme_extensions_gen)
----------------------------------------------------------------------------------------------------------------------------------
+
+---
 
 ## Features
 
@@ -26,6 +27,59 @@ ThemeExtension</code>.
     * `debugFillProperties()` if `Diagnosticable` is used
 * Group-based output (`light`, `dark`, etc.)
 * Fully configurable via `build.yaml`
+
+---
+
+## Automatic Theme Extensions Aggregation
+
+Automatically aggregate all your theme implementations without manual effort.
+
+This feature leverages two annotations:
+
+* **`@ThemeExtensionTemplate`**: Marks abstract interfaces as templates from which concrete theme classes are generated, complete with utility methods (`copyWith`, `lerp`, equality operators, etc.).
+* **`@ThemeExtensionImpl`**: Annotate your top-level getters or functions that return either an instance or a list of these generated theme classes. The generator automatically collects names of all annotated elements into a centralized, maintained list.
+
+**Generated Example:**
+
+The builder generates a centralized theme extensions file similar to this:
+
+```dart
+// GENERATED CODE - DO NOT MODIFY BY HAND
+import 'package:flutter/material.dart';
+import 'package:your_app/features/home/themes.dart' as _$i1;
+import 'package:your_app/features/profile/themes.dart' as _$i2;
+
+List<ThemeExtension> get themeExtensions => [
+  ..._$i1.themeExtensionsHome(),
+  ..._$i2.themeExtensionsProfile(),
+  // additional theme extensions...
+];
+```
+
+Simply integrate the generated list into your app theme:
+
+```dart
+ThemeData(
+  extensions: [
+    ...themeExtensions,
+  ],
+)
+```
+
+Customize the location and name of the generated list through `build.yaml`:
+
+```yaml
+targets:
+  $default:
+    builders:
+      theme_extensions_gen::themeExtensionsImplCombiner:
+        options:
+          default_output:
+            path: "generated/theme_extensions/theme_extensions.dart"
+            list_name: "themeExtensions"
+```
+
+With this setup, you can fully concentrate on creating theme implementations, while the generator automatically manages the rest after each build.
 
 ---
 
@@ -132,26 +186,26 @@ List<ThemeExtension> get someFeatureThemeExtensions =>
 targets:
   $default:
     builders:
-      themeExtensionsImplCombiner:
+      theme_extensions_gen:themeExtensionsImplCombiner:
         options:
           default_output:
-            path: "lib/generated/theme_extensions/theme_extensions.dart"
+            path: "generated/theme_extensions/theme_extensions.dart"
             list_name: "themeExtensions"
           groups:
             dark:
-              path: "lib/generated/theme_extensions/theme_extensions_dark.dart"
+              path: "generated/theme_extensions/theme_extensions_dark.dart"
               list_name: "themeExtensionsDark"
 
-      contextExtensionsGenerator:
+      theme_extensions_gen:contextExtensionsGenerator:
         options:
-          output_path: "lib/generated/theme_extensions/context_extensions.dart"
+          output_path: "generated/theme_extensions/context_extensions.dart"
 ```
 
 To **disable `contextExtensionsGenerator`**, use:
 
 ```yaml
 builders:
-  contextExtensionsGenerator:
+  theme_extensions_gen:contextExtensionsGenerator:
     enabled: false
 ```
 
@@ -169,8 +223,7 @@ final theme = context.themedCardTheme;
 
 ## Example Project
 
-See the [
-`example/`](https://github.com/kalaganov/theme_extensions_gen/tree/main/packages/theme_extensions_gen/example)
+See the [`example/`](https://github.com/kalaganov/theme_extensions_gen/tree/main/packages/theme_extensions_gen/example)
 for:
 
 * Shared ThemeExtension templates

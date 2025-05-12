@@ -3,7 +3,7 @@ import 'package:meta/meta.dart' show immutable;
 import 'package:theme_extensions_gen/src/misc/types.dart';
 import 'package:theme_extensions_gen/src/models/options/option_keys.dart';
 import 'package:theme_extensions_gen/src/models/options/output_group.dart';
-import 'package:yaml/yaml.dart' show YamlMap, YamlList;
+import 'package:yaml/yaml.dart';
 
 /// Configuration parsed from `build.yaml` for theme extension generation.
 ///
@@ -24,18 +24,18 @@ final class ThemeGeneratorConfig {
   /// - [OptionKeys.defaultOutput] as `JsonMap`
   /// - [OptionKeys.outputGroups] as `Map<String, JsonMap>`
   factory ThemeGeneratorConfig.fromMap(dynamic raw) {
-    final map = raw is YamlMap ? _yamlToMap(raw) : raw as JsonMap;
+    final map = raw is YamlMap ? raw.value : raw as JsonMap;
     final rawDefaultGroup = map[OptionKeys.defaultOutput];
     final rawOutputGroups = map[OptionKeys.outputGroups];
 
     final mapDefaultGroup = rawDefaultGroup is YamlMap
-        ? _yamlToMap(rawDefaultGroup)
+        ? rawDefaultGroup.value.cast<String, dynamic>()
         : rawDefaultGroup as JsonMap;
 
     final mapOutputGroups = rawOutputGroups == null
         ? <String, dynamic>{}
         : (rawOutputGroups is YamlMap
-            ? _yamlToMap(rawOutputGroups)
+            ? rawOutputGroups.value.cast<String, dynamic>()
             : rawOutputGroups as JsonMap);
 
     return ThemeGeneratorConfig._(
@@ -44,7 +44,7 @@ final class ThemeGeneratorConfig {
         mapDefaultGroup,
       ),
       outputGroups: mapOutputGroups.entries
-          .map((e) => _toOutputGroup(e.key, e.value as JsonMap))
+          .map((e) => _toOutputGroup(e.key, e.value))
           .toList(growable: false),
     );
   }
@@ -87,8 +87,9 @@ final class ThemeGeneratorConfig {
     return !outputGroups.any((g) => g.name == group);
   }
 
-  static OutputGroup _toOutputGroup(String name, JsonMap map) =>
-      OutputGroup(name: name, map: map);
+  static OutputGroup _toOutputGroup(String name, dynamic raw) => OutputGroup(
+      name: name,
+      map: raw is YamlMap ? raw.value.cast<String, dynamic>() : raw as JsonMap);
 
   @override
   bool operator ==(Object other) =>
@@ -103,20 +104,4 @@ final class ThemeGeneratorConfig {
   int get hashCode =>
       defaultOutput.hashCode ^
       const DeepCollectionEquality().hash(outputGroups);
-}
-
-JsonMap _yamlToMap(YamlMap yaml) {
-  final result = <String, dynamic>{};
-  for (final entry in yaml.entries) {
-    final key = entry.key.toString();
-    final value = entry.value;
-    result[key] = switch (value) {
-      YamlMap map => _yamlToMap(map),
-      YamlList list => List.of(
-          list.map((v) => v is YamlMap ? _yamlToMap(v) : v),
-        ),
-      _ => value,
-    };
-  }
-  return result;
 }

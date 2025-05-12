@@ -3,7 +3,7 @@ import 'package:analyzer/dart/element/nullability_suffix.dart'
     show NullabilitySuffix;
 import 'package:analyzer/dart/element/type.dart' show DartType, InterfaceType;
 import 'package:collection/collection.dart';
-import 'package:meta/meta.dart' show immutable;
+import 'package:meta/meta.dart' show immutable, visibleForTesting;
 import 'package:source_gen/source_gen.dart'
     show ConstantReader, InvalidGenerationSource;
 
@@ -28,13 +28,15 @@ final class ThemeExtensionTemplateValidator {
   /// Ensures the class structure, inheritance, constructors,
   /// and `lerp`-related requirements are correctly implemented.
   void validate() {
-    _validateAnnotation();
-    _validateInheritance();
+    validateAnnotation();
+    validateInheritance();
     _validateConstructors();
     _validateLerpStaticMethodOrFactory();
   }
 
-  void _validateAnnotation() {
+  /// nodoc
+  @visibleForTesting
+  void validateAnnotation() {
     if (_element is! ClassElement) {
       throw InvalidGenerationSource(
         'The annotation @${_annotation.objectValue.type} '
@@ -44,7 +46,9 @@ final class ThemeExtensionTemplateValidator {
     }
   }
 
-  void _validateInheritance() {
+  /// nodoc
+  @visibleForTesting
+  void validateInheritance() {
     final classElement = _element as ClassElement;
     final directSuper = classElement.supertype;
 
