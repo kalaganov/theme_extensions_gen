@@ -1,7 +1,10 @@
 # Changelog
 
+## [0.2.1]
+**chore:** minor README updates and improved test coverage
+
 ## [0.2.0]
-**feat:** migrated to standalone repository from monorepo
+**feat:** migrate to standalone repository from monorepo
 
 ## [0.1.5]
 **chore(example):** update structure and documentation
