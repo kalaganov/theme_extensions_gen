@@ -27,10 +27,7 @@ mixin _$AppThemeMixin {
 
   ThemeExtension<AppTheme> copyWith() => throw UnimplementedError();
 
-  ThemeExtension<AppTheme> lerp(
-    covariant AppTheme? other,
-    double t,
-  ) =>
+  ThemeExtension<AppTheme> lerp(covariant AppTheme? other, double t) =>
       throw UnimplementedError();
 }
 
@@ -140,71 +137,39 @@ class _$AppThemeImpl extends ThemeExtension<AppTheme> implements _$AppTheme {
     double? gap,
     Lerpable? lerpableParam,
     LerpableFactory? lerpableFactoryParam,
-  }) =>
-      AppTheme(
-        textStyle: textStyle ?? this.textStyle,
-        color: color ?? this.color,
-        size: size ?? this.size,
-        decoration: decoration ?? this.decoration,
-        offset: offset ?? this.offset,
-        alignment: alignment ?? this.alignment,
-        duration: duration ?? this.duration,
-        gap: gap ?? this.gap,
-        lerpableParam: lerpableParam ?? this.lerpableParam,
-        lerpableFactoryParam: lerpableFactoryParam ?? this.lerpableFactoryParam,
-      );
+  }) => AppTheme(
+    textStyle: textStyle ?? this.textStyle,
+    color: color ?? this.color,
+    size: size ?? this.size,
+    decoration: decoration ?? this.decoration,
+    offset: offset ?? this.offset,
+    alignment: alignment ?? this.alignment,
+    duration: duration ?? this.duration,
+    gap: gap ?? this.gap,
+    lerpableParam: lerpableParam ?? this.lerpableParam,
+    lerpableFactoryParam: lerpableFactoryParam ?? this.lerpableFactoryParam,
+  );
 
   @override
-  ThemeExtension<AppTheme> lerp(
-    ThemeExtension<AppTheme>? other,
-    double t,
-  ) =>
+  ThemeExtension<AppTheme> lerp(ThemeExtension<AppTheme>? other, double t) =>
       other is! AppTheme
-          ? this
-          : AppTheme(
-              textStyle: TextStyle.lerp(
-                textStyle,
-                other.textStyle,
-                t,
-              )!,
-              color: Color.lerp(
-                color,
-                other.color,
-                t,
-              )!,
-              size: Size.lerp(
-                size,
-                other.size,
-                t,
-              )!,
-              decoration: Decoration.lerp(
-                decoration,
-                other.decoration,
-                t,
-              )!,
-              offset: Offset.lerp(
-                offset,
-                other.offset,
-                t,
-              )!,
-              alignment: Alignment.lerp(
-                alignment,
-                other.alignment,
-                t,
-              )!,
-              duration: _lerpDuration(duration, other.duration, t),
-              gap: _lerpDouble(gap, other.gap, t),
-              lerpableParam: Lerpable.lerp(
-                lerpableParam,
-                other.lerpableParam,
-                t,
-              )!,
-              lerpableFactoryParam: LerpableFactory.lerp(
-                lerpableFactoryParam,
-                other.lerpableFactoryParam,
-                t,
-              ),
-            );
+      ? this
+      : AppTheme(
+          textStyle: TextStyle.lerp(textStyle, other.textStyle, t)!,
+          color: Color.lerp(color, other.color, t)!,
+          size: Size.lerp(size, other.size, t)!,
+          decoration: Decoration.lerp(decoration, other.decoration, t)!,
+          offset: Offset.lerp(offset, other.offset, t)!,
+          alignment: Alignment.lerp(alignment, other.alignment, t)!,
+          duration: _lerpDuration(duration, other.duration, t),
+          gap: _lerpDouble(gap, other.gap, t),
+          lerpableParam: Lerpable.lerp(lerpableParam, other.lerpableParam, t)!,
+          lerpableFactoryParam: LerpableFactory.lerp(
+            lerpableFactoryParam,
+            other.lerpableFactoryParam,
+            t,
+          ),
+        );
 
   double _lerpDouble(double a, double b, double t) =>
       a == b || (a.isNaN && b.isNaN) ? a : a * (1.0 - t) + b * t;
@@ -221,7 +186,8 @@ class _$AppThemeImpl extends ThemeExtension<AppTheme> implements _$AppTheme {
   }
 
   @override
-  String toString() => 'AppTheme('
+  String toString() =>
+      'AppTheme('
       'textStyle: $textStyle, '
       'color: $color, '
       'size: $size, '
@@ -246,16 +212,14 @@ mixin _$AppThemeWithDiagnosticableMixin {
   ThemeExtension<AppThemeWithDiagnosticable> lerp(
     covariant AppThemeWithDiagnosticable? other,
     double t,
-  ) =>
-      throw UnimplementedError();
+  ) => throw UnimplementedError();
 }
 
 /// @nodoc
 abstract class _$AppThemeWithDiagnosticable
     implements AppThemeWithDiagnosticable {
-  const factory _$AppThemeWithDiagnosticable({
-    required Color color,
-  }) = _$AppThemeWithDiagnosticableImpl;
+  const factory _$AppThemeWithDiagnosticable({required Color color}) =
+      _$AppThemeWithDiagnosticableImpl;
 }
 
 /// @nodoc
@@ -264,9 +228,7 @@ class _$AppThemeWithDiagnosticableImpl
     extends ThemeExtension<AppThemeWithDiagnosticable>
     with Diagnosticable
     implements _$AppThemeWithDiagnosticable {
-  const _$AppThemeWithDiagnosticableImpl({
-    required this.color,
-  });
+  const _$AppThemeWithDiagnosticableImpl({required this.color});
 
   @override
   final Color color;
@@ -285,32 +247,19 @@ class _$AppThemeWithDiagnosticableImpl
   int get hashCode => color.hashCode;
 
   @override
-  ThemeExtension<AppThemeWithDiagnosticable> copyWith({
-    Color? color,
-  }) =>
-      AppThemeWithDiagnosticable(
-        color: color ?? this.color,
-      );
+  ThemeExtension<AppThemeWithDiagnosticable> copyWith({Color? color}) =>
+      AppThemeWithDiagnosticable(color: color ?? this.color);
 
   @override
   ThemeExtension<AppThemeWithDiagnosticable> lerp(
     ThemeExtension<AppThemeWithDiagnosticable>? other,
     double t,
-  ) =>
-      other is! AppThemeWithDiagnosticable
-          ? this
-          : AppThemeWithDiagnosticable(
-              color: Color.lerp(
-                color,
-                other.color,
-                t,
-              )!,
-            );
+  ) => other is! AppThemeWithDiagnosticable
+      ? this
+      : AppThemeWithDiagnosticable(color: Color.lerp(color, other.color, t)!);
 
   @override
-  void debugFillProperties(
-    DiagnosticPropertiesBuilder properties,
-  ) {
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties..add(DiagnosticsProperty('color', color));
   }

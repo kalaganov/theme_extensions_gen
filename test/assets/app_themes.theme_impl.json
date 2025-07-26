@@ -3,12 +3,12 @@
     {
       "group": "dark",
       "import": "package:a/src/app_themes.dart",
-      "name": "...themeExtensionsFunction()"
+      "name": "...themeExtensionsGetter"
     },
     {
       "group": "dark",
       "import": "package:a/src/app_themes.dart",
-      "name": "...themeExtensionsGetter"
+      "name": "...themeExtensionsFunction()"
     },
     {
       "import": "package:a/src/app_themes.dart",

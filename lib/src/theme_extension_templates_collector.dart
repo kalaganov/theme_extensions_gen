@@ -7,8 +7,6 @@ import 'package:source_gen/source_gen.dart' show LibraryReader, TypeChecker;
 import 'package:theme_extensions_gen/src/models/collected_templates.dart';
 import 'package:theme_extensions_gen_annotations/theme_extensions_gen_annotations.dart';
 
-//ignore_for_file: deprecated_member_use
-
 /// Collects all elements annotated with `@ThemeExtensionTemplate`
 /// and writes their names and import URI to a `.theme_templates.json` file.
 @immutable
@@ -48,6 +46,6 @@ final class ThemeExtensionTemplatesCollector extends Builder {
 
   @override
   Map<String, List<String>> get buildExtensions => const {
-        '.dart': ['.theme_templates.json'],
-      };
+    '.dart': ['.theme_templates.json'],
+  };
 }

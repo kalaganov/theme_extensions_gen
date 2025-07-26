@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:build/build.dart';
 import 'package:build_test/build_test.dart';
 import 'package:test/test.dart';
 import 'package:theme_extensions_gen/src/context_extensions_generator.dart';
@@ -79,25 +78,16 @@ extension ContextThemeExtensions on BuildContext {
 }
 ''';
 
-    final writer = InMemoryAssetWriter();
-
-    await testBuilder(
-      ContextExtensionsGenerator(
-        ContextExtensionsGeneratorConfig.fromMap(
-          const {OptionKeys.outputPath: 'src/context_extensions.dart'},
-        ),
-      ),
-      inputs,
-      writer: writer,
-      reader: await PackageAssetReader.currentIsolate(),
+    final builder = ContextExtensionsGenerator(
+      ContextExtensionsGeneratorConfig.fromMap(const {
+        OptionKeys.outputPath: 'src/context_extensions.dart',
+      }),
     );
-
-    final actualId = AssetId('a', 'lib/src/context_extensions.dart');
-    final actual = String.fromCharCodes(writer.assets[actualId]!.toList());
-
-    expect(
-      _normalize(actual),
-      equals(_normalize(expectedOutput)),
+    await testBuilder(
+      builder,
+      inputs,
+      outputs: {'a|lib/src/context_extensions.dart': expectedOutput},
+      rootPackage: 'a',
     );
   });
 
@@ -120,16 +110,18 @@ extension ContextThemeExtensions on BuildContext {
   });
 
   test('ContextExtensionsGeneratorConfig YAML', () {
-    final a = ContextExtensionsGeneratorConfig.fromMap(YamlMap.wrap(const {
-      OptionKeys.outputPath: 'src/context_extensions.dart',
-    }));
-    final b = ContextExtensionsGeneratorConfig.fromMap(YamlMap.wrap(const {
-      OptionKeys.outputPath: 'src/context_extensions.dart',
-    }));
+    final a = ContextExtensionsGeneratorConfig.fromMap(
+      YamlMap.wrap(const {
+        OptionKeys.outputPath: 'src/context_extensions.dart',
+      }),
+    );
+    final b = ContextExtensionsGeneratorConfig.fromMap(
+      YamlMap.wrap(const {
+        OptionKeys.outputPath: 'src/context_extensions.dart',
+      }),
+    );
 
     expect(a, equals(b));
     expect(a.hashCode, equals(b.hashCode));
   });
 }
-
-String _normalize(String source) => source.replaceAll(RegExp(r'\s+'), '');

@@ -7,8 +7,6 @@ import 'src/theme_extension_impl_collector.dart';
 import 'src/theme_extension_templates_collector.dart';
 import 'src/theme_extensions_generator.dart';
 import 'src/theme_extensions_impl_combiner.dart';
-import 'src/validators/context_extensions_config_validator.dart';
-import 'src/validators/theme_generator_config_validator.dart';
 
 /// Provides a [Builder] that generates theme extensions from annotations.
 Builder themeExtensionsGenerator(_) =>
@@ -28,20 +26,14 @@ Builder themeExtensionsTemplatesCollector(_) =>
 
 /// A [Builder] that reads `.theme_impl.json` metadata and generates
 /// a Dart file with a merged list of `ThemeExtension` instances.
-Builder themeExtensionsImplCombiner(BuilderOptions options) {
-  ThemeGeneratorConfigValidator.validate(options.config);
-  return ThemeExtensionsImplCombiner(
-    ThemeGeneratorConfig.fromMap(options.config),
-  );
-}
+Builder themeExtensionsImplCombiner(BuilderOptions options) =>
+    ThemeExtensionsImplCombiner(ThemeGeneratorConfig.fromMap(options.config));
 
 /// A [Builder] that reads `.theme_templates.json` metadata and generates
 /// an extension on BuildContext with getters for all template class names.
 /// For example,
 /// an annotation over AppThemeBottomBar -> getter appThemeBottomBar
-Builder contextExtensionsGenerator(BuilderOptions options) {
-  ContextExtensionsConfigValidator.validate(options.config);
-  return ContextExtensionsGenerator(
-    ContextExtensionsGeneratorConfig.fromMap(options.config),
-  );
-}
+Builder contextExtensionsGenerator(BuilderOptions options) =>
+    ContextExtensionsGenerator(
+      ContextExtensionsGeneratorConfig.fromMap(options.config),
+    );

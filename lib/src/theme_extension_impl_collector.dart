@@ -1,16 +1,13 @@
 import 'dart:async' show FutureOr;
 import 'dart:convert' show jsonEncode;
 
-import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/dart/element/element2.dart';
 import 'package:build/build.dart' show BuildStep, Builder;
 import 'package:meta/meta.dart' show immutable, visibleForTesting;
 import 'package:source_gen/source_gen.dart' show LibraryReader, TypeChecker;
 import 'package:theme_extensions_gen/src/models/collected_impl.dart';
 import 'package:theme_extensions_gen/src/models/collected_impl_list.dart';
-import 'package:theme_extensions_gen/src/validators/theme_extension_impl_validator.dart';
 import 'package:theme_extensions_gen_annotations/theme_extensions_gen_annotations.dart';
-
-//ignore_for_file: deprecated_member_use
 
 /// Collects all elements annotated with `@ThemeExtensionImpl`
 /// and writes their names and import URI to a `.theme_impl.json` file.
@@ -37,14 +34,13 @@ final class ThemeExtensionImplCollector extends Builder {
     );
     if (annotatedElements.isEmpty) return;
 
-    const validator = ThemeExtensionImplValidator();
     final items = <CollectedImpl>[];
 
     for (final annotated in annotatedElements) {
-      validator.validateElement(annotated.element);
-
       final group = annotated.annotation.peek('group')?.stringValue;
+
       final prefix = resolveNamePrefix(annotated.element);
+
       final name = resolveElementName(annotated.element);
 
       final impl = CollectedImpl(
@@ -64,30 +60,30 @@ final class ThemeExtensionImplCollector extends Builder {
 
   /// nodoc
   @visibleForTesting
-  String resolveNamePrefix(Element element) {
+  String resolveNamePrefix(Element2 element) {
     return switch (element) {
-      FunctionElement(:final returnType) =>
+      TopLevelFunctionElement(:final returnType) =>
         returnType.isDartCoreList ? '...' : '',
-      PropertyAccessorElement(:final returnType) =>
+      PropertyAccessorElement2(:final returnType) =>
         returnType.isDartCoreList ? '...' : '',
-      TopLevelVariableElement(:final type) => type.isDartCoreList ? '...' : '',
+      TopLevelVariableElement2(:final type) => type.isDartCoreList ? '...' : '',
       _ => throw StateError('Unexpected element type: ${element.runtimeType}'),
     };
   }
 
   /// nodoc
   @visibleForTesting
-  String resolveElementName(Element element) {
+  String resolveElementName(Element2 element) {
     return switch (element) {
-      FunctionElement(:final displayName) => '$displayName()',
-      PropertyAccessorElement(:final displayName) => displayName,
-      TopLevelVariableElement(:final displayName) => displayName,
+      TopLevelFunctionElement(:final displayName) => '$displayName()',
+      PropertyAccessorElement2(:final displayName) => displayName,
+      TopLevelVariableElement2(:final displayName) => displayName,
       _ => throw StateError('Unexpected element type: ${element.runtimeType}'),
     };
   }
 
   @override
   Map<String, List<String>> get buildExtensions => const {
-        '.dart': ['.theme_impl.json'],
-      };
+    '.dart': ['.theme_impl.json'],
+  };
 }
