@@ -72,7 +72,7 @@ Customize the location and name of the generated list through `build.yaml`:
 targets:
   $default:
     builders:
-      theme_extensions_gen::themeExtensionsImplCombiner:
+      theme_extensions_gen:themeExtensionsImplCombiner:
         options:
           default_output:
             path: "generated/theme_extensions/theme_extensions.dart"

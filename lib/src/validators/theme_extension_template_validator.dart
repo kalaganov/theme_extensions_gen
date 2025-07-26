@@ -1,7 +1,7 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/nullability_suffix.dart'
     show NullabilitySuffix;
-import 'package:analyzer/dart/element/type.dart' show DartType, InterfaceType;
+import 'package:analyzer/dart/element/type.dart' show DartType;
 import 'package:collection/collection.dart';
 import 'package:meta/meta.dart' show immutable, visibleForTesting;
 import 'package:source_gen/source_gen.dart'
@@ -66,24 +66,6 @@ final class ThemeExtensionTemplateValidator {
       );
     }
 
-    final args = directSuper.typeArguments;
-    if (args.length != 1) {
-      throw InvalidGenerationSource(
-        'ThemeExtension must have exactly one generic type '
-        'in ${classElement.name}.',
-        element: _element,
-      );
-    }
-
-    final arg = args.first;
-    if (arg is! InterfaceType || arg.element != classElement) {
-      final argName = arg.getDisplayString();
-      throw InvalidGenerationSource(
-        'ThemeExtension\'s generic argument must be the same class '
-        '(${classElement.name}), but got $argName.',
-        element: _element,
-      );
-    }
   }
 
   void _validateConstructors() {
@@ -103,14 +85,6 @@ final class ThemeExtensionTemplateValidator {
     if (!ctor.isFactory) {
       throw InvalidGenerationSource(
         'The constructor of ${classElement.name} must be a factory.',
-        element: _element,
-      );
-    }
-
-    if (ctor.name.startsWith('_')) {
-      throw InvalidGenerationSource(
-        'The factory constructor of ${classElement.name} '
-        'must not be private.',
         element: _element,
       );
     }
