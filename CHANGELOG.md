@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0]
+**refactor:** migrate to element2 API and remove legacy analyzer usage
+**chore:** update dependencies for Dart 3.8 and latest build/codegen packages
+**refactor:** drop manual builder config validation in favor of fromMap
+**test:** clean up outdated mocks and migrate to TestReaderWriter-based tests
+**test:** update golden files for new codegen output
+
 ## [0.2.1]
 **chore:** minor README updates and improved test coverage
 

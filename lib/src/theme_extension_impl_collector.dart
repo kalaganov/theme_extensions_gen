@@ -30,7 +30,7 @@ final class ThemeExtensionImplCollector extends Builder {
 
     final reader = LibraryReader(lib);
     final annotatedElements = reader.annotatedWith(
-      const TypeChecker.fromRuntime(ThemeExtensionImpl),
+      const TypeChecker.typeNamed(ThemeExtensionImpl),
     );
     if (annotatedElements.isEmpty) return;
 

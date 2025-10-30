@@ -26,7 +26,7 @@ final class ThemeExtensionTemplatesCollector extends Builder {
 
     final reader = LibraryReader(lib);
     final annotatedElements = reader.annotatedWith(
-      const TypeChecker.fromRuntime(ThemeExtensionTemplate),
+      const TypeChecker.typeNamed(ThemeExtensionTemplate),
     );
     if (annotatedElements.isEmpty) return;
 
