@@ -1,4 +1,4 @@
-import 'package:analyzer/dart/element/element2.dart';
+import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/nullability_suffix.dart'
     show NullabilitySuffix;
 import 'package:build/build.dart';
@@ -17,7 +17,7 @@ final class ThemeExtensionsGenerator
     extends GeneratorForAnnotation<ThemeExtensionTemplate> {
   @override
   Future<String> generateForAnnotatedElement(
-    Element2 element,
+    Element element,
     ConstantReader annotation,
     BuildStep buildStep,
   ) async {
@@ -26,12 +26,12 @@ final class ThemeExtensionsGenerator
       element,
     );
 
-    final classElement = element as ClassElement2;
-    final constructor = classElement.firstFragment.constructors2.single;
+    final classElement = element as ClassElement;
+    final constructor = classElement.firstFragment.constructors.single;
     final className = classElement.displayName;
     final parameters = constructor.formalParameters;
 
-    final names = parameters.map((p) => '${p.name2}').toList(growable: false);
+    final names = parameters.map((p) => '${p.name}').toList(growable: false);
     final types = parameters
         .map((p) => '${p.element.type}')
         .toList(growable: false);
@@ -75,9 +75,9 @@ final class ThemeExtensionsGenerator
 
   Future<String> _extractRedirectedConstructorName(
     BuildStep buildStep,
-    Element2 element,
+    Element element,
   ) async {
-    final assetId = element.library2!.firstFragment.source.uri;
+    final assetId = element.library!.firstFragment.source.uri;
     final fileContent = await buildStep.readAsString(AssetId.resolve(assetId));
     final stripped = fileContent.replaceAll(RegExp(r'\s+'), '');
     final pattern = RegExp('factory${element.displayName}\\(.*?\\)=(_?[^;]+);');
@@ -90,8 +90,8 @@ final class ThemeExtensionsGenerator
         parameter.element.type.getDisplayString() == 'Duration') {
       return false;
     } else {
-      final element = parameter.element.type.element3 as ClassElement2?;
-      final staticLerp = element?.getMethod2('lerp');
+      final element = parameter.element.type.element as ClassElement?;
+      final staticLerp = element?.getMethod('lerp');
       if (staticLerp == null || !staticLerp.isStatic) return false;
 
       return staticLerp.returnType.nullabilitySuffix ==
@@ -99,11 +99,11 @@ final class ThemeExtensionsGenerator
     }
   }
 
-  bool _hasDiagnosticableMixin(ClassElement2 classElement) =>
+  bool _hasDiagnosticableMixin(ClassElement classElement) =>
       classElement.mixins.any(
         (mixin) =>
-            mixin.element3.displayName == 'Diagnosticable' &&
-            mixin.element3.library2.uri.toString().startsWith(
+            mixin.element.displayName == 'Diagnosticable' &&
+            mixin.element.library.uri.toString().startsWith(
               'package:flutter',
             ),
       );

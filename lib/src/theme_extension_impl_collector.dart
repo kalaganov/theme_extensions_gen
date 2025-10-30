@@ -1,7 +1,7 @@
 import 'dart:async' show FutureOr;
 import 'dart:convert' show jsonEncode;
 
-import 'package:analyzer/dart/element/element2.dart';
+import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart' show BuildStep, Builder;
 import 'package:meta/meta.dart' show immutable, visibleForTesting;
 import 'package:source_gen/source_gen.dart' show LibraryReader, TypeChecker;
@@ -60,24 +60,24 @@ final class ThemeExtensionImplCollector extends Builder {
 
   /// nodoc
   @visibleForTesting
-  String resolveNamePrefix(Element2 element) {
+  String resolveNamePrefix(Element element) {
     return switch (element) {
       TopLevelFunctionElement(:final returnType) =>
         returnType.isDartCoreList ? '...' : '',
-      PropertyAccessorElement2(:final returnType) =>
+      PropertyAccessorElement(:final returnType) =>
         returnType.isDartCoreList ? '...' : '',
-      TopLevelVariableElement2(:final type) => type.isDartCoreList ? '...' : '',
+      TopLevelVariableElement(:final type) => type.isDartCoreList ? '...' : '',
       _ => throw StateError('Unexpected element type: ${element.runtimeType}'),
     };
   }
 
   /// nodoc
   @visibleForTesting
-  String resolveElementName(Element2 element) {
+  String resolveElementName(Element element) {
     return switch (element) {
       TopLevelFunctionElement(:final displayName) => '$displayName()',
-      PropertyAccessorElement2(:final displayName) => displayName,
-      TopLevelVariableElement2(:final displayName) => displayName,
+      PropertyAccessorElement(:final displayName) => displayName,
+      TopLevelVariableElement(:final displayName) => displayName,
       _ => throw StateError('Unexpected element type: ${element.runtimeType}'),
     };
   }
