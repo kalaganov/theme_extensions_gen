@@ -26,7 +26,7 @@ final class CopyWithTemplate implements Template {
   @override
   void write(StringBuffer sb) {
     sb.writeln('@override');
-    sb.writeln('ThemeExtension<$_className> copyWith({');
+    sb.writeln('$_className copyWith({');
     for (var i = 0; i < _params.params.length; i++) {
       final param = _params.params[i];
       sb.writeln('${param.type}? ${param.name},');
