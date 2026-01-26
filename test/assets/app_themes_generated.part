@@ -25,7 +25,18 @@ mixin _$AppThemeMixin {
 
   LerpableFactory get lerpableFactoryParam => throw UnimplementedError();
 
-  ThemeExtension<AppTheme> copyWith() => throw UnimplementedError();
+  AppTheme copyWith({
+    TextStyle? textStyle,
+    Color? color,
+    Size? size,
+    Decoration? decoration,
+    Offset? offset,
+    Alignment? alignment,
+    Duration? duration,
+    double? gap,
+    Lerpable? lerpableParam,
+    LerpableFactory? lerpableFactoryParam,
+  }) => throw UnimplementedError();
 
   ThemeExtension<AppTheme> lerp(covariant AppTheme? other, double t) =>
       throw UnimplementedError();
@@ -126,7 +137,7 @@ class _$AppThemeImpl extends ThemeExtension<AppTheme> implements _$AppTheme {
       lerpableFactoryParam.hashCode;
 
   @override
-  ThemeExtension<AppTheme> copyWith({
+  AppTheme copyWith({
     TextStyle? textStyle,
     Color? color,
     Size? size,
@@ -206,7 +217,7 @@ class _$AppThemeImpl extends ThemeExtension<AppTheme> implements _$AppTheme {
 mixin _$AppThemeWithDiagnosticableMixin {
   Color get color => throw UnimplementedError();
 
-  ThemeExtension<AppThemeWithDiagnosticable> copyWith() =>
+  AppThemeWithDiagnosticable copyWith({Color? color}) =>
       throw UnimplementedError();
 
   ThemeExtension<AppThemeWithDiagnosticable> lerp(
@@ -247,7 +258,7 @@ class _$AppThemeWithDiagnosticableImpl
   int get hashCode => color.hashCode;
 
   @override
-  ThemeExtension<AppThemeWithDiagnosticable> copyWith({Color? color}) =>
+  AppThemeWithDiagnosticable copyWith({Color? color}) =>
       AppThemeWithDiagnosticable(color: color ?? this.color);
 
   @override
