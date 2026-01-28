@@ -1,7 +1,7 @@
 # Changelog
 
-## [1.0.0]
-**Allow analyzer 10.0.0.
+## [1.0.1]
+**Allow analyzer 9.0.0.
 
 ## [0.3.0]
 **refactor:** migrate to element2 API and remove legacy analyzer usage
