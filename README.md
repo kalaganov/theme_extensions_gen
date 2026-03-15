@@ -223,7 +223,7 @@ final theme = context.themedCardTheme;
 
 ## Example Project
 
-See the [`example/`](https://github.com/kalaganov/theme_extensions_gen/tree/main/packages/theme_extensions_gen/example)
+See the [`example/`](https://github.com/kalaganov/theme_extensions_gen/tree/main/example)
 for:
 
 * Shared ThemeExtension templates

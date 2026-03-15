@@ -3,7 +3,7 @@ description: Reusable ThemeExtension templates for building Flutter design syste
 publish_to: 'none'
 
 environment:
-  sdk: '>=3.6.0 <4.0.0'
+  sdk: '>=3.9.0 <4.0.0'
 
 resolution: workspace
 
@@ -16,4 +16,4 @@ dependencies:
 dev_dependencies:
   build_runner: ^2.4.15
 
-  theme_extensions_gen: ^0.1.4
+  theme_extensions_gen: ^1.0.0
