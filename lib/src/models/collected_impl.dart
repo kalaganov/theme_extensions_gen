@@ -5,10 +5,6 @@ import 'package:theme_extensions_gen/src/misc/types.dart';
 ///
 /// Used to pass import URI, optional group, and annotated element name
 /// (variable, list, or getter) to the next build step.
-/// Collected data from a single element annotated with `@ThemeExtensionImpl`.
-///
-/// Used to pass import URI, optional group, and annotated element name
-/// (variable, list, or getter) to the next build step.
 @immutable
 final class CollectedImpl {
   /// Creates an instance containing import URI, group, and element name

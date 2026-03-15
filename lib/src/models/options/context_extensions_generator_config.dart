@@ -16,7 +16,7 @@ final class ContextExtensionsGeneratorConfig {
             ? raw[OptionKeys.outputPath]
             : (raw as JsonMap)[OptionKeys.outputPath]) as String;
 
-  /// default context extensions output path
+  /// Default context extensions output path.
   final String outputPath;
 
   @override

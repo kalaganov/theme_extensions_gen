@@ -23,7 +23,7 @@ final class OutputGroup {
     required this.listName,
   });
 
-  /// add description
+  /// The group identifier used to determine output target.
   final String name;
 
   /// File path for the output Dart file.

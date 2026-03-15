@@ -1,12 +1,12 @@
 import 'package:meta/meta.dart' show immutable;
 import 'package:theme_extensions_gen/src/templates/interface/template.dart';
 
-/// A template for generating the ```lerpDuration```
+/// A template for generating the `_lerpDuration`
 /// function used in interpolation.
 ///
 /// The generated function is copied
 /// from `package:flutter/foundation.dart` and provides linear
-/// interpolation between two numeric values of type `num?`.
+/// interpolation between two `Duration` values.
 @immutable
 final class LerpDurationImplementationTemplate implements Template {
   /// Creates a [LerpDurationImplementationTemplate].

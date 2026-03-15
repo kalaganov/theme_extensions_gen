@@ -5,7 +5,7 @@ import 'package:theme_extensions_gen/src/models/constructor_param.dart';
 ///
 /// Ensures positional parameters always come before named ones.
 final class ConstructorParams {
-  /// Creates [ConstructorParams] from raw parallel lists of names and types,
+  /// Creates [ConstructorParams] from raw parallel lists of names and types.
   /// Assumes all lists have equal length.
   factory ConstructorParams.fromParts({
     required List<String> names,

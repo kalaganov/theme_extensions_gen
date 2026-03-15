@@ -4,7 +4,7 @@ import 'package:theme_extensions_gen/src/templates/interface/template.dart';
 /// A template for generating a mixin with unimplemented getters and methods.
 ///
 /// This mixin provides the interface for theme extension classes, including
-/// property getters and the required ```copyWith``` and ```lerp``` methods.
+/// property getters and the required `copyWith` and `lerp` methods.
 @immutable
 final class MixinTemplate implements Template {
   /// Creates a [MixinTemplate] with the given class name and property list.
