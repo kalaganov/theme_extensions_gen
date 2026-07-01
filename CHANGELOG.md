@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.1.0]
+**chore:** widen analyzer constraint to `>=8.0.0 <13.0.0` (support analyzer 10, 11, 12 for Dart 3.10–3.12); generator code unchanged
+
 ## [1.0.1]
 **Allow analyzer 9.0.0.
 
